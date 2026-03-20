@@ -13,7 +13,7 @@
   --bg:#0A0E1A;--bg2:#111827;--bg3:#1F2937;--bg4:#374151;
   --gold:#F5C842;--gold2:#D4A017;--gold-dim:rgba(245,200,66,0.15);
   --white:#F9FAFB;--gray:#9CA3AF;--gray2:#6B7280;--gray3:#4B5563;
-  --green:#10B981;--red:#EF4444;--blue:#3B82F6;
+  --green:#10B981;--red:#EF4444;--blue:#3B82F6;--purple:#8B5CF6;
   --radius:12px;--radius-sm:8px;
   --font:'Pretendard',system-ui,sans-serif;
   --mono:'DM Mono',monospace;
@@ -23,51 +23,63 @@ body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:
 input,select,textarea,button{font-family:inherit;font-size:inherit}
 
 /* Header */
-.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:20px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .header-inner{max-width:1200px;margin:0 auto;padding:0 24px}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px}
-.logo{font-size:1.6rem;font-weight:800;color:var(--gold);letter-spacing:-0.5px}
-.logo span{color:var(--gray);font-weight:400;font-size:0.9rem;margin-left:8px}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:12px}
+.logo{font-size:1.5rem;font-weight:800;color:var(--gold);letter-spacing:-0.5px}
+.logo span{color:var(--gray);font-weight:400;font-size:0.85rem;margin-left:8px}
+.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .api-row{display:flex;align-items:center;gap:8px}
-.api-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:8px 14px;border-radius:var(--radius-sm);width:320px;font-family:var(--mono);font-size:0.85rem}
+.api-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:7px 12px;border-radius:var(--radius-sm);width:280px;font-family:var(--mono);font-size:0.82rem}
 .api-input:focus{outline:none;border-color:var(--gold)}
 .api-status{width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0}
 .api-status.ok{background:var(--green)}
-.settings-row{display:flex;gap:12px;flex-wrap:wrap}
-.setting-group{display:flex;align-items:center;gap:6px}
-.setting-group label{color:var(--gray);font-size:0.85rem;white-space:nowrap}
-.setting-group select{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer}
+.settings-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.setting-group{display:flex;align-items:center;gap:5px}
+.setting-group label{color:var(--gray);font-size:0.82rem;white-space:nowrap}
+.setting-group select{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:5px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:0.85rem}
 .setting-group select:focus{outline:none;border-color:var(--gold)}
 
 /* Main */
 .main{max-width:1200px;margin:0 auto;padding:24px}
 
 /* Step */
-.step{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;transition:border-color 0.3s}
+.step{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:border-color 0.3s}
 .step.active{border-color:var(--gold)}
 .step.completed{border-color:var(--green)}
-.step-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.2s}
+.step-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;user-select:none;transition:background 0.2s}
 .step-header:hover{background:var(--bg3)}
-.step-num{background:var(--bg4);color:var(--gray);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;transition:all 0.3s}
+.step-num{background:var(--bg4);color:var(--gray);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;transition:all 0.3s}
 .step.active .step-num{background:var(--gold);color:var(--bg)}
 .step.completed .step-num{background:var(--green);color:var(--white)}
-.step-title{font-weight:600;font-size:1.05rem;flex:1}
-.step-summary{color:var(--gray);font-size:0.85rem;max-width:400px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.step-chevron{color:var(--gray);transition:transform 0.3s;font-size:1.2rem}
+.step-title{font-weight:600;font-size:1rem;flex:1}
+.step-summary{color:var(--gray);font-size:0.82rem;max-width:400px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-chevron{color:var(--gray);transition:transform 0.3s;font-size:1.1rem}
 .step.open .step-chevron{transform:rotate(180deg)}
 .step-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
 .step.open .step-body{max-height:none;overflow:visible}
 .step-content{padding:0 20px 20px}
 
+/* Guide Box */
+.guide-box{background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(59,130,246,0.1));border:1px solid rgba(139,92,246,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;font-size:0.88rem;line-height:1.7;display:none}
+.guide-box.show{display:block}
+.guide-box .guide-title{color:var(--purple);font-weight:700;margin-bottom:6px;font-size:0.9rem}
+.guide-box ol{padding-left:20px;color:var(--gray)}
+.guide-box ol li{margin-bottom:4px}
+.guide-box a{color:var(--blue);text-decoration:none}
+.guide-box a:hover{text-decoration:underline}
+.guide-toggle{background:transparent;border:1px solid var(--purple);color:var(--purple);padding:4px 10px;border-radius:20px;font-size:0.75rem;cursor:pointer;margin-left:8px}
+.guide-toggle:hover{background:rgba(139,92,246,0.15)}
+
 /* Inputs */
-.input-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.text-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:10px 16px;border-radius:var(--radius-sm);flex:1;min-width:200px}
+.input-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.text-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:9px 14px;border-radius:var(--radius-sm);flex:1;min-width:200px}
 .text-input:focus{outline:none;border-color:var(--gold)}
-.textarea-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:12px 16px;border-radius:var(--radius-sm);width:100%;min-height:120px;resize:vertical;line-height:1.7}
+.textarea-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:12px 16px;border-radius:var(--radius-sm);width:100%;min-height:100px;resize:vertical;line-height:1.7}
 .textarea-input:focus{outline:none;border-color:var(--gold)}
 
 /* Buttons */
-.btn{padding:10px 20px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;font-size:0.95rem}
+.btn{padding:9px 18px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;font-size:0.9rem}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
 .btn-gold{background:var(--gold);color:var(--bg)}
 .btn-gold:hover:not(:disabled){background:var(--gold2);transform:translateY(-1px)}
@@ -75,70 +87,125 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 .btn-outline:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
 .btn-green{background:var(--green);color:var(--white)}
 .btn-green:hover:not(:disabled){filter:brightness(1.1)}
-.btn-sm{padding:6px 12px;font-size:0.8rem;border-radius:6px}
-.btn-copy{background:var(--bg4);color:var(--white);font-size:0.8rem;padding:5px 10px;border-radius:6px}
+.btn-blue{background:var(--blue);color:var(--white)}
+.btn-blue:hover:not(:disabled){filter:brightness(1.1)}
+.btn-purple{background:var(--purple);color:var(--white)}
+.btn-purple:hover:not(:disabled){filter:brightness(1.1)}
+.btn-sm{padding:5px 10px;font-size:0.78rem;border-radius:6px}
+.btn-copy{background:var(--bg4);color:var(--white);font-size:0.78rem;padding:5px 10px;border-radius:6px}
 .btn-copy:hover{background:var(--gold);color:var(--bg)}
 .btn-copy.copied{background:var(--green)}
 
+/* Rewrite toolbar */
+.rewrite-bar{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;padding:10px 14px;background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm)}
+.rewrite-bar .label{color:var(--gray);font-size:0.8rem;display:flex;align-items:center;margin-right:4px}
+.rw-btn{padding:5px 12px;border:1px solid var(--bg4);background:transparent;color:var(--white);border-radius:20px;font-size:0.78rem;cursor:pointer;transition:all 0.2s}
+.rw-btn:hover{border-color:var(--purple);color:var(--purple);background:rgba(139,92,246,0.1)}
+.rw-btn.active{border-color:var(--purple);background:var(--purple);color:var(--white)}
+
 /* Topic Cards */
 .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.topic-card{background:var(--bg);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:flex-start;gap:10px}
+.topic-card{background:var(--bg);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:flex-start;gap:10px}
 .topic-card:hover{border-color:var(--gold);background:var(--gold-dim)}
 .topic-card.selected{border-color:var(--gold);background:var(--gold-dim)}
 .topic-num{color:var(--gold);font-weight:700;font-family:var(--mono);flex-shrink:0}
-.topic-text{flex:1;font-size:0.93rem;line-height:1.5}
-.topic-stars{color:var(--gold);font-size:0.85rem;flex-shrink:0;white-space:nowrap}
+.topic-text{flex:1;font-size:0.9rem;line-height:1.5}
+.topic-stars{color:var(--gold);font-size:0.82rem;flex-shrink:0}
 
 /* Output area */
-.output-area{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px 20px;min-height:100px;white-space:pre-wrap;line-height:1.8;font-size:0.95rem;position:relative;margin-top:12px}
-.output-area .cursor{display:inline-block;width:2px;height:1.1em;background:var(--gold);animation:blink 0.8s infinite;vertical-align:text-bottom;margin-left:2px}
-@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
-.output-header{display:flex;justify-content:space-between;align-items:center;margin-top:16px;margin-bottom:8px;flex-wrap:wrap;gap:8px}
-.output-meta{color:var(--gray);font-size:0.85rem;font-family:var(--mono)}
+.output-area{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px 20px;min-height:80px;white-space:pre-wrap;line-height:1.8;font-size:0.92rem;position:relative;margin-top:10px}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.output-meta{color:var(--gray);font-size:0.82rem;font-family:var(--mono)}
 
-/* Prompt Cards (Step 3) */
-.prompt-list{margin-top:12px}
-.prompt-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px;position:relative}
-.prompt-card .scene-tag{color:var(--gold);font-weight:600;font-size:0.9rem;margin-bottom:4px}
-.prompt-card .ko-desc{color:var(--gray);font-size:0.88rem;margin-bottom:6px}
-.prompt-card .en-prompt{color:var(--white);font-size:0.93rem;font-family:var(--mono);line-height:1.5}
+/* Prompt Cards */
+.prompt-list{margin-top:10px}
+.prompt-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;position:relative}
+.prompt-card .scene-tag{color:var(--gold);font-weight:600;font-size:0.85rem;margin-bottom:3px}
+.prompt-card .ko-desc{color:var(--gray);font-size:0.85rem;margin-bottom:5px}
+.prompt-card .en-prompt{color:var(--white);font-size:0.88rem;font-family:var(--mono);line-height:1.5}
 .prompt-card .copy-btn{position:absolute;top:10px;right:10px}
 
-/* Thumbnail Cards (Step 5) */
+/* Thumbnail Cards */
 .thumb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-.thumb-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px;position:relative}
-.thumb-card .type-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:10px}
-.thumb-card .thumb-text{font-weight:700;font-size:1.1rem;margin-bottom:8px;line-height:1.4}
-.thumb-card .color-swatch{display:inline-block;width:20px;height:20px;border-radius:4px;vertical-align:middle;margin-right:6px;border:1px solid var(--bg4)}
+.thumb-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:14px;position:relative}
+.thumb-card .type-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:20px;font-size:0.78rem;font-weight:600;margin-bottom:8px}
+.thumb-card .thumb-text{font-weight:700;font-size:1.05rem;margin-bottom:8px;line-height:1.4}
+.thumb-card .color-swatch{display:inline-block;width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:5px;border:1px solid var(--bg4)}
 
-/* Checklist (Step 7) */
-.checklist{margin-top:12px}
-.check-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer;transition:all 0.2s}
+/* TTS Player */
+.tts-panel{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px;margin-top:12px}
+.tts-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.tts-controls select{background:var(--bg2);border:1px solid var(--bg4);color:var(--white);padding:6px 10px;border-radius:var(--radius-sm);font-size:0.85rem}
+.tts-progress{width:100%;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-top:8px}
+.tts-progress-bar{height:100%;background:var(--gold);width:0%;transition:width 0.3s}
+.tts-status{color:var(--gray);font-size:0.8rem;margin-top:6px}
+.speed-control{display:flex;align-items:center;gap:6px}
+.speed-control input[type=range]{width:80px;accent-color:var(--gold)}
+.speed-control span{color:var(--gray);font-size:0.8rem;font-family:var(--mono);min-width:35px}
+
+/* BGM Section */
+.bgm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:12px}
+.bgm-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:14px;transition:border-color 0.2s}
+.bgm-card:hover{border-color:var(--blue)}
+.bgm-card .bgm-mood{color:var(--blue);font-weight:600;font-size:0.9rem;margin-bottom:6px}
+.bgm-card .bgm-desc{color:var(--gray);font-size:0.82rem;margin-bottom:8px;line-height:1.5}
+.bgm-card .bgm-links{display:flex;flex-wrap:wrap;gap:6px}
+.bgm-card .bgm-link{display:inline-block;padding:3px 10px;background:var(--bg2);border:1px solid var(--bg4);border-radius:20px;color:var(--white);font-size:0.75rem;text-decoration:none;transition:all 0.2s}
+.bgm-card .bgm-link:hover{border-color:var(--blue);color:var(--blue)}
+
+/* Checklist */
+.checklist{margin-top:10px}
+.check-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer;transition:all 0.2s}
 .check-item:hover{border-color:var(--gold)}
 .check-item.checked{border-color:var(--green);background:rgba(16,185,129,0.08)}
-.check-box{width:24px;height:24px;border:2px solid var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;font-size:0.85rem}
+.check-box{width:22px;height:22px;border:2px solid var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;font-size:0.8rem}
 .check-item.checked .check-box{background:var(--green);border-color:var(--green);color:var(--white)}
-.check-label{flex:1;font-size:0.95rem}
-.check-result{margin-top:16px;padding:16px;border-radius:var(--radius-sm);text-align:center;font-weight:600;font-size:1.05rem}
+.check-label{flex:1;font-size:0.9rem}
+.check-result{margin-top:14px;padding:14px;border-radius:var(--radius-sm);text-align:center;font-weight:600;font-size:1rem}
 .check-result.pass{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid var(--green)}
 .check-result.fail{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
 
-/* Loading */
-.loading{display:flex;align-items:center;gap:10px;padding:16px;color:var(--gold)}
-.spinner{width:20px;height:20px;border:2px solid var(--bg4);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* Project Manager */
+.project-bar{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.project-bar .proj-label{color:var(--gray);font-size:0.82rem}
+.project-bar select{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:6px 12px;border-radius:var(--radius-sm);font-size:0.85rem;min-width:200px}
+.project-bar .proj-name-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:6px 12px;border-radius:var(--radius-sm);font-size:0.85rem;width:200px;display:none}
+
+/* Cost Calculator */
+.cost-panel{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-top:16px}
+.cost-panel h3{color:var(--gold);font-size:1rem;margin-bottom:12px}
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.cost-card{background:var(--bg);border-radius:var(--radius-sm);padding:12px;text-align:center}
+.cost-card .val{font-size:1.2rem;font-weight:700;color:var(--gold);font-family:var(--mono)}
+.cost-card .lbl{font-size:0.78rem;color:var(--gray);margin-top:4px}
 
 /* Revenue Calculator */
-.revenue-calc{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-top:24px}
+.revenue-calc{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-top:16px}
 .revenue-calc h3{color:var(--gold);font-size:1rem;margin-bottom:12px}
 .revenue-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.revenue-result{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.revenue-result{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .revenue-card{background:var(--bg);border-radius:var(--radius-sm);padding:12px;text-align:center}
-.revenue-card .val{font-size:1.3rem;font-weight:700;color:var(--gold);font-family:var(--mono)}
-.revenue-card .lbl{font-size:0.8rem;color:var(--gray);margin-top:4px}
+.revenue-card .val{font-size:1.2rem;font-weight:700;color:var(--gold);font-family:var(--mono)}
+.revenue-card .lbl{font-size:0.78rem;color:var(--gray);margin-top:4px}
+
+/* Loading */
+.loading{display:flex;align-items:center;gap:10px;padding:14px;color:var(--gold)}
+.spinner{width:18px;height:18px;border:2px solid var(--bg4);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Error */
-.error-msg{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:var(--red);padding:12px 16px;border-radius:var(--radius-sm);margin-top:12px;font-size:0.9rem}
+.error-msg{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:var(--red);padding:10px 14px;border-radius:var(--radius-sm);margin-top:10px;font-size:0.85rem}
+
+/* Character Settings */
+.char-settings{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px}
+.char-settings .setting-group{flex-direction:column;align-items:flex-start;gap:4px}
+.char-settings .setting-group select{width:100%}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:24px;max-width:400px;width:90%}
+.modal h3{color:var(--gold);margin-bottom:16px}
 
 /* Responsive */
 @media(max-width:768px){
@@ -146,18 +213,11 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
   .api-input{width:100%}
   .topic-grid{grid-template-columns:1fr}
   .thumb-grid{grid-template-columns:1fr}
-  .revenue-result{grid-template-columns:1fr}
+  .revenue-result,.cost-grid{grid-template-columns:1fr}
   .settings-row{flex-direction:column}
+  .bgm-grid{grid-template-columns:1fr}
+  .project-bar{flex-direction:column;align-items:flex-start}
 }
-
-/* Character Sheet Inputs */
-.char-settings{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px}
-.char-settings .setting-group{flex-direction:column;align-items:flex-start;gap:4px}
-.char-settings .setting-group select{width:100%}
-
-/* Upload section */
-.upload-section{margin-top:12px;margin-bottom:16px}
-.upload-section h4{color:var(--gray);font-size:0.85rem;margin-bottom:8px;font-weight:500}
 </style>
 </head>
 <body>
@@ -166,10 +226,12 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 <header class="header">
   <div class="header-inner">
     <div class="header-top">
-      <div class="logo">AI Video Maker <span>v1.0 — 경제 롱폼 영상 자동화</span></div>
-      <div class="api-row">
-        <div class="api-status" id="apiStatus"></div>
-        <input type="password" class="api-input" id="apiKeyInput" placeholder="Claude API Key (sk-ant-...)" oninput="handleApiKey(this.value)">
+      <div class="logo">AI Video Maker <span>v2.0 — 경제 롱폼 영상 자동화</span></div>
+      <div class="header-actions">
+        <div class="api-row">
+          <div class="api-status" id="apiStatus"></div>
+          <input type="password" class="api-input" id="apiKeyInput" placeholder="Claude API Key (sk-ant-...)" oninput="handleApiKey(this.value)">
+        </div>
       </div>
     </div>
     <div class="settings-row">
@@ -184,7 +246,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
         </select>
       </div>
       <div class="setting-group">
-        <label>채널 스타일</label>
+        <label>스타일</label>
         <select id="styleSelect">
           <option value="semi-real">반실사 (햄찌교수)</option>
           <option value="zolaman">쫄라맨</option>
@@ -193,7 +255,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
         </select>
       </div>
       <div class="setting-group">
-        <label>타겟 연령</label>
+        <label>타겟</label>
         <select id="targetSelect">
           <option value="30s" selected>30대</option>
           <option value="20s">20대</option>
@@ -201,7 +263,6 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
           <option value="all">전연령</option>
         </select>
       </div>
-      <button class="btn btn-outline btn-sm" onclick="resetAll()">새 프로젝트</button>
     </div>
   </div>
 </header>
@@ -209,24 +270,46 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 <!-- MAIN -->
 <main class="main">
 
-  <!-- STEP 1: 주제 발굴 -->
+  <!-- Project Manager -->
+  <div class="project-bar">
+    <span class="proj-label">프로젝트:</span>
+    <select id="projectSelect" onchange="loadProject(this.value)">
+      <option value="">-- 새 프로젝트 --</option>
+    </select>
+    <input type="text" class="proj-name-input" id="projNameInput" placeholder="프로젝트 이름">
+    <button class="btn btn-gold btn-sm" onclick="saveProject()">저장</button>
+    <button class="btn btn-outline btn-sm" onclick="showRenameInput()">이름 변경</button>
+    <button class="btn btn-outline btn-sm" style="border-color:var(--red);color:var(--red)" onclick="deleteProject()">삭제</button>
+  </div>
+
+  <!-- STEP 1 -->
   <section class="step active open" id="step1">
     <div class="step-header" onclick="toggleStep(1)">
       <div class="step-num">1</div>
       <div class="step-title">주제 발굴 & 선정</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(1)">? 가이드</button>
       <div class="step-summary" id="step1Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
+        <div class="guide-box" id="guide1">
+          <div class="guide-title">STEP 1 가이드</div>
+          <ol>
+            <li>관심 있는 키워드나 뉴스 헤드라인을 입력하세요</li>
+            <li>AI가 유튜브에 최적화된 주제 10개를 생성합니다</li>
+            <li>마음에 드는 주제 카드를 클릭하면 다음 단계로 이동합니다</li>
+            <li>원하는 주제가 없으면 하단에 직접 입력할 수 있습니다</li>
+          </ol>
+        </div>
         <div class="input-row">
-          <input type="text" class="text-input" id="keywordInput" placeholder="키워드 또는 뉴스 헤드라인 입력 (예: 미국 금리 인하)" onkeydown="if(event.key==='Enter')generateTopics()">
+          <input type="text" class="text-input" id="keywordInput" placeholder="키워드 또는 뉴스 헤드라인 (예: 미국 금리 인하)" onkeydown="if(event.key==='Enter')generateTopics()">
           <button class="btn btn-gold" id="topicBtn" onclick="generateTopics()">주제 10개 생성</button>
         </div>
         <div id="topicLoading" style="display:none" class="loading"><div class="spinner"></div>주제를 생성하고 있습니다...</div>
         <div id="topicError"></div>
         <div class="topic-grid" id="topicGrid"></div>
-        <div style="margin-top:12px;display:none" id="customTopicRow">
+        <div style="margin-top:10px;display:none" id="customTopicRow">
           <div class="input-row">
             <input type="text" class="text-input" id="customTopicInput" placeholder="또는 직접 주제를 입력하세요">
             <button class="btn btn-outline" onclick="selectCustomTopic()">이 주제로 진행</button>
@@ -236,19 +319,29 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     </div>
   </section>
 
-  <!-- STEP 2: 대본 생성 -->
+  <!-- STEP 2 -->
   <section class="step" id="step2">
     <div class="step-header" onclick="toggleStep(2)">
       <div class="step-num">2</div>
       <div class="step-title">대본 생성</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(2)">? 가이드</button>
       <div class="step-summary" id="step2Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div class="guide-box" id="guide2">
+          <div class="guide-title">STEP 2 가이드</div>
+          <ol>
+            <li>"대본 생성" 버튼을 클릭하면 8,000~10,000자 대본이 실시간 생성됩니다</li>
+            <li>생성된 대본을 AI 리라이팅 버튼으로 스타일 수정 가능합니다</li>
+            <li>TTS 미리듣기로 대본을 음성으로 들어볼 수 있습니다</li>
+            <li>대본 완성 후 → STEP 3에서 이미지 프롬프트를 자동 생성합니다</li>
+          </ol>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
           <div>
-            <span style="color:var(--gray);font-size:0.85rem">선택된 주제:</span>
+            <span style="color:var(--gray);font-size:0.82rem">선택된 주제:</span>
             <strong id="selectedTopicDisplay" style="color:var(--gold);margin-left:6px"></strong>
           </div>
           <button class="btn btn-gold" id="scriptBtn" onclick="generateScript()" disabled>대본 생성 (8,000~10,000자)</button>
@@ -256,26 +349,72 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
         <div id="scriptLoading" style="display:none" class="loading"><div class="spinner"></div>대본을 작성하고 있습니다...</div>
         <div id="scriptError"></div>
         <div class="output-header" id="scriptHeader" style="display:none">
-          <div>
-            <button class="btn btn-copy" onclick="copyText('scriptOutput')">전체 복사</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="btn btn-copy" onclick="copyText(this,'scriptOutput')">전체 복사</button>
           </div>
           <div class="output-meta" id="scriptMeta"></div>
         </div>
         <div class="output-area" id="scriptOutput" style="display:none"></div>
+        <!-- Rewrite Toolbar -->
+        <div class="rewrite-bar" id="rewriteBar" style="display:none">
+          <span class="label">AI 리라이팅:</span>
+          <button class="rw-btn" onclick="rewriteScript('more_hook')">더 자극적으로</button>
+          <button class="rw-btn" onclick="rewriteScript('softer')">톤 부드럽게</button>
+          <button class="rw-btn" onclick="rewriteScript('shorter')">길이 줄이기</button>
+          <button class="rw-btn" onclick="rewriteScript('longer')">길이 늘리기</button>
+          <button class="rw-btn" onclick="rewriteScript('more_data')">데이터 강화</button>
+          <button class="rw-btn" onclick="rewriteScript('more_opinion')">사견 강화</button>
+          <button class="rw-btn" onclick="rewriteScript('custom')">직접 지시</button>
+        </div>
+        <!-- TTS Panel -->
+        <div class="tts-panel" id="ttsPanel" style="display:none">
+          <div class="tts-controls">
+            <button class="btn btn-blue btn-sm" id="ttsPlayBtn" onclick="ttsPlay()">&#9654; 재생</button>
+            <button class="btn btn-outline btn-sm" onclick="ttsPause()">&#10074;&#10074; 일시정지</button>
+            <button class="btn btn-outline btn-sm" onclick="ttsStop()">&#9632; 정지</button>
+            <div class="setting-group">
+              <label>음성</label>
+              <select id="ttsVoiceSelect"></select>
+            </div>
+            <div class="speed-control">
+              <label style="color:var(--gray);font-size:0.8rem">속도</label>
+              <input type="range" id="ttsSpeed" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('ttsSpeedVal').textContent=this.value+'x'">
+              <span id="ttsSpeedVal">1x</span>
+            </div>
+            <div class="speed-control">
+              <label style="color:var(--gray);font-size:0.8rem">피치</label>
+              <input type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('ttsPitchVal').textContent=this.value">
+              <span id="ttsPitchVal">1</span>
+            </div>
+          </div>
+          <div class="tts-progress"><div class="tts-progress-bar" id="ttsProgressBar"></div></div>
+          <div class="tts-status" id="ttsStatus">대본을 생성하면 TTS 미리듣기를 사용할 수 있습니다</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- STEP 3: 이미지 프롬프트 -->
+  <!-- STEP 3 -->
   <section class="step" id="step3">
     <div class="step-header" onclick="toggleStep(3)">
       <div class="step-num">3</div>
       <div class="step-title">이미지 프롬프트 생성</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(3)">? 가이드</button>
       <div class="step-summary" id="step3Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
+        <div class="guide-box" id="guide3">
+          <div class="guide-title">STEP 3 완료 후 다음 작업</div>
+          <ol>
+            <li>"AutoWhisk 복사" 버튼을 클릭하세요</li>
+            <li>Chrome에서 <a href="https://labs.google/fx/tools/whisk" target="_blank">whisk.google.com</a> 접속</li>
+            <li>AutoWhisk 확장 프로그램 실행</li>
+            <li>프롬프트 붙여넣기 → 스타트 버튼</li>
+            <li>이미지 생성이 완료되면 STEP 4에서 캐릭터 시트를 만드세요</li>
+          </ol>
+        </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-gold" id="promptBtn" onclick="generateImagePrompts()" disabled>이미지 프롬프트 생성</button>
           <button class="btn btn-green" id="autoWhiskBtn" onclick="copyAutoWhisk()" style="display:none">AutoWhisk 복사</button>
@@ -288,59 +427,63 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     </div>
   </section>
 
-  <!-- STEP 4: 캐릭터 시트 -->
+  <!-- STEP 4 -->
   <section class="step" id="step4">
     <div class="step-header" onclick="toggleStep(4)">
       <div class="step-num">4</div>
       <div class="step-title">캐릭터 시트 생성</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(4)">? 가이드</button>
       <div class="step-summary" id="step4Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
+        <div class="guide-box" id="guide4">
+          <div class="guide-title">STEP 4 가이드</div>
+          <ol>
+            <li>캐릭터 설정을 선택하세요 (성별, 연령, 직업 등)</li>
+            <li>생성된 시트의 "Subject 프롬프트"를 Whisk에 입력하세요</li>
+            <li>표정 변형 5종으로 다양한 장면을 만들 수 있습니다</li>
+          </ol>
+        </div>
         <div class="char-settings">
-          <div class="setting-group">
-            <label>성별</label>
-            <select id="charGender"><option value="male">남성</option><option value="female">여성</option></select>
-          </div>
-          <div class="setting-group">
-            <label>연령대</label>
-            <select id="charAge"><option value="20s">20대</option><option value="30s" selected>30대</option><option value="40s">40대</option><option value="50s">50대</option></select>
-          </div>
-          <div class="setting-group">
-            <label>직업 이미지</label>
-            <select id="charJob"><option value="office">직장인</option><option value="expert">전문가</option><option value="casual">캐주얼</option></select>
-          </div>
-          <div class="setting-group">
-            <label>헤어</label>
-            <select id="charHair"><option value="short">짧은 헤어</option><option value="medium">단발</option><option value="long">장발</option></select>
-          </div>
-          <div class="setting-group">
-            <label>안경</label>
-            <select id="charGlasses"><option value="no">없음</option><option value="yes">있음</option></select>
-          </div>
+          <div class="setting-group"><label>성별</label><select id="charGender"><option value="male">남성</option><option value="female">여성</option></select></div>
+          <div class="setting-group"><label>연령대</label><select id="charAge"><option value="20s">20대</option><option value="30s" selected>30대</option><option value="40s">40대</option><option value="50s">50대</option></select></div>
+          <div class="setting-group"><label>직업</label><select id="charJob"><option value="office">직장인</option><option value="expert">전문가</option><option value="casual">캐주얼</option></select></div>
+          <div class="setting-group"><label>헤어</label><select id="charHair"><option value="short">짧은 헤어</option><option value="medium">단발</option><option value="long">장발</option></select></div>
+          <div class="setting-group"><label>안경</label><select id="charGlasses"><option value="no">없음</option><option value="yes">있음</option></select></div>
         </div>
         <button class="btn btn-gold" id="charBtn" onclick="generateCharSheet()">캐릭터 시트 생성</button>
         <div id="charLoading" style="display:none" class="loading"><div class="spinner"></div>캐릭터 시트를 생성하고 있습니다...</div>
         <div id="charError"></div>
         <div class="output-header" id="charHeader" style="display:none">
-          <button class="btn btn-copy" onclick="copyText('charOutput')">전체 복사</button>
+          <button class="btn btn-copy" onclick="copyText(this,'charOutput')">전체 복사</button>
         </div>
         <div class="output-area" id="charOutput" style="display:none"></div>
       </div>
     </div>
   </section>
 
-  <!-- STEP 5: 썸네일 -->
+  <!-- STEP 5 -->
   <section class="step" id="step5">
     <div class="step-header" onclick="toggleStep(5)">
       <div class="step-num">5</div>
       <div class="step-title">썸네일 프롬프트 생성</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(5)">? 가이드</button>
       <div class="step-summary" id="step5Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
+        <div class="guide-box" id="guide5">
+          <div class="guide-title">STEP 5 가이드</div>
+          <ol>
+            <li>3종 썸네일이 생성됩니다 (충격형/궁금증형/희망형)</li>
+            <li>각 프롬프트를 <a href="https://aistudio.google.com" target="_blank">Gemini</a>나 나노바나에 입력하세요</li>
+            <li>배경 색상 hex 코드를 Canva에서 사용할 수 있습니다</li>
+            <li>A/B/C 테스트로 클릭률이 높은 썸네일을 찾으세요</li>
+          </ol>
+        </div>
         <button class="btn btn-gold" id="thumbBtn" onclick="generateThumbnails()" disabled>썸네일 3종 생성</button>
         <div id="thumbLoading" style="display:none" class="loading"><div class="spinner"></div>썸네일 프롬프트를 생성하고 있습니다...</div>
         <div id="thumbError"></div>
@@ -349,34 +492,44 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     </div>
   </section>
 
-  <!-- STEP 6: 업로드 최적화 -->
+  <!-- STEP 6 -->
   <section class="step" id="step6">
     <div class="step-header" onclick="toggleStep(6)">
       <div class="step-num">6</div>
       <div class="step-title">유튜브 업로드 최적화</div>
+      <button class="guide-toggle" onclick="event.stopPropagation();toggleGuide(6)">? 가이드</button>
       <div class="step-summary" id="step6Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
+        <div class="guide-box" id="guide6">
+          <div class="guide-title">STEP 6 가이드</div>
+          <ol>
+            <li>영상 제목 3종 중 하나를 골라 유튜브에 입력하세요</li>
+            <li>영상 설명, 태그, 타임스탬프를 각각 복사하여 붙여넣기</li>
+            <li>AI 생성 콘텐츠 고지를 반드시 유튜브 설정에서 체크하세요</li>
+            <li>고정 댓글을 업로드 직후 달아주세요</li>
+          </ol>
+        </div>
         <button class="btn btn-gold" id="uploadBtn" onclick="generateUploadTexts()" disabled>업로드 텍스트 생성</button>
         <div id="uploadLoading" style="display:none" class="loading"><div class="spinner"></div>업로드 최적화 텍스트를 생성하고 있습니다...</div>
         <div id="uploadError"></div>
         <div class="output-header" id="uploadHeader" style="display:none">
-          <button class="btn btn-copy" onclick="copyText('uploadOutput')">전체 복사</button>
+          <button class="btn btn-copy" onclick="copyText(this,'uploadOutput')">전체 복사</button>
         </div>
         <div class="output-area" id="uploadOutput" style="display:none"></div>
       </div>
     </div>
   </section>
 
-  <!-- STEP 7: 삭제 방지 체크리스트 -->
+  <!-- STEP 7 -->
   <section class="step" id="step7">
     <div class="step-header" onclick="toggleStep(7)">
       <div class="step-num">7</div>
       <div class="step-title">삭제 방지 체크리스트</div>
       <div class="step-summary" id="step7Summary"></div>
-      <div class="step-chevron">▼</div>
+      <div class="step-chevron">&#9660;</div>
     </div>
     <div class="step-body">
       <div class="step-content">
@@ -386,64 +539,105 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     </div>
   </section>
 
+  <!-- STEP 8: BGM -->
+  <section class="step" id="step8">
+    <div class="step-header" onclick="toggleStep(8)">
+      <div class="step-num">8</div>
+      <div class="step-title">BGM 추천</div>
+      <div class="step-summary" id="step8Summary"></div>
+      <div class="step-chevron">&#9660;</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="btn btn-gold" onclick="generateBGM()">AI BGM 추천</button>
+          <button class="btn btn-outline btn-sm" onclick="showBGMSites()">무료 BGM 사이트 모음</button>
+        </div>
+        <div id="bgmLoading" style="display:none" class="loading"><div class="spinner"></div>BGM을 추천하고 있습니다...</div>
+        <div id="bgmError"></div>
+        <div class="bgm-grid" id="bgmGrid"></div>
+        <div id="bgmSites" style="display:none;margin-top:12px">
+          <div class="bgm-grid" id="bgmSiteGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost Calculator -->
+  <div class="cost-panel">
+    <h3>예상 제작 비용 계산기</h3>
+    <p style="color:var(--gray);font-size:0.82rem;margin-bottom:10px">이 영상에 사용된 API 호출 및 도구 비용을 자동 계산합니다</p>
+    <div class="cost-grid" id="costGrid">
+      <div class="cost-card"><div class="val" id="costApi">$0.00</div><div class="lbl">Claude API 비용</div></div>
+      <div class="cost-card"><div class="val" id="costTts">$0.00</div><div class="lbl">TTS 비용 (무료)</div></div>
+      <div class="cost-card"><div class="val" id="costImage">~$0.00</div><div class="lbl">이미지 생성 (Whisk 무료)</div></div>
+      <div class="cost-card"><div class="val" id="costTotal">$0.00</div><div class="lbl">총 예상 비용</div></div>
+      <div class="cost-card"><div class="val" id="costKrw">&#8361;0</div><div class="lbl">원화 환산</div></div>
+      <div class="cost-card"><div class="val" id="costTokens">0</div><div class="lbl">총 토큰 사용량</div></div>
+    </div>
+  </div>
+
   <!-- Revenue Calculator -->
   <div class="revenue-calc">
     <h3>예상 수익 계산기</h3>
     <div class="revenue-row">
-      <input type="number" class="text-input" id="viewsInput" placeholder="예상 조회수" oninput="calcRevenue()" style="max-width:200px">
-      <span style="color:var(--gray);font-size:0.85rem">회 조회 기준</span>
+      <input type="number" class="text-input" id="viewsInput" placeholder="예상 조회수" oninput="calcRevenue()" style="max-width:180px">
+      <span style="color:var(--gray);font-size:0.82rem">회 조회 기준</span>
     </div>
     <div class="revenue-result" id="revenueResult" style="display:none">
-      <div class="revenue-card">
-        <div class="val" id="revUsd"></div>
-        <div class="lbl">예상 애드센스 (USD)</div>
-      </div>
-      <div class="revenue-card">
-        <div class="val" id="revKrw"></div>
-        <div class="lbl">원화 환산</div>
-      </div>
-      <div class="revenue-card">
-        <div class="val" id="revMonthly"></div>
-        <div class="lbl">월 30개 영상 기준</div>
-      </div>
+      <div class="revenue-card"><div class="val" id="revUsd"></div><div class="lbl">예상 애드센스 (USD)</div></div>
+      <div class="revenue-card"><div class="val" id="revKrw"></div><div class="lbl">원화 환산</div></div>
+      <div class="revenue-card"><div class="val" id="revMonthly"></div><div class="lbl">월 30개 영상 기준</div></div>
     </div>
   </div>
 
 </main>
 
+<!-- Custom Rewrite Modal -->
+<div class="modal-overlay" id="rewriteModal">
+  <div class="modal">
+    <h3>AI 리라이팅 지시</h3>
+    <textarea class="textarea-input" id="rewriteInstruction" placeholder="대본을 어떻게 수정할지 자유롭게 입력하세요&#10;예: 인트로를 더 충격적으로 바꿔줘"></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+      <button class="btn btn-outline" onclick="closeRewriteModal()">취소</button>
+      <button class="btn btn-purple" onclick="submitCustomRewrite()">리라이팅 실행</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ===== STATE =====
 const state = {
   apiKey: '',
-  genre: 'economy',
-  channelStyle: 'semi-real',
-  targetAge: '30s',
+  genre: 'economy', channelStyle: 'semi-real', targetAge: '30s',
   step1: { keyword: '', topics: [], selectedIndex: -1 },
   step2: { selectedTopic: '', script: '' },
   step3: { rawText: '', prompts: [] },
   step4: { sheet: '' },
   step5: { thumbnails: '' },
   step6: { uploadText: '' },
-  step7: { checks: [false, false, false, false, false] }
+  step7: { checks: [false,false,false,false,false] },
+  cost: { inputTokens: 0, outputTokens: 0, apiCalls: 0 }
 };
 
-const GENRE_LABELS = { economy: '경제', politics: '시사', psychology: '심리학', history: '역사', realestate: '부동산' };
-const STYLE_LABELS = { 'semi-real': '반실사(햄찌교수)', zolaman: '쫄라맨', ghibli: '지브리', realistic: '실사' };
-const TARGET_LABELS = { '20s': '20대', '30s': '30대', '40s': '40대', all: '전연령' };
-const CHECKLIST_ITEMS = [
-  '고유 캐릭터 사용 (쫄라맨 복붙 X)',
-  '이미지 → 영상 변환 (인트로 최소 30초)',
-  '고유 TTS 사용 (공용 TTS X)',
-  'AI 생성 콘텐츠 업로드 시 고지 체크',
-  '크리에이터 사견 대본에 포함'
-];
+const GENRE_LABELS = {economy:'경제',politics:'시사',psychology:'심리학',history:'역사',realestate:'부동산'};
+const STYLE_LABELS = {'semi-real':'반실사(햄찌교수)',zolaman:'쫄라맨',ghibli:'지브리',realistic:'실사'};
+const TARGET_LABELS = {'20s':'20대','30s':'30대','40s':'40대',all:'전연령'};
+const CHECKLIST_ITEMS = ['고유 캐릭터 사용 (쫄라맨 복붙 X)','이미지 → 영상 변환 (인트로 최소 30초)','고유 TTS 사용 (공용 TTS X)','AI 생성 콘텐츠 업로드 시 고지 체크','크리에이터 사견 대본에 포함'];
+
+// ===== TTS STATE =====
+let ttsUtterance = null;
+let ttsPlaying = false;
 
 // ===== INIT =====
 function init() {
   const saved = sessionStorage.getItem('avm_apikey');
-  if (saved) { state.apiKey = saved; document.getElementById('apiKeyInput').value = saved; updateApiStatus(); }
+  if (saved) { state.apiKey = saved; document.getElementById('apiKeyInput').value = saved; }
+  updateApiStatus();
   renderChecklist();
   bindSettings();
+  loadProjectList();
+  initTTSVoices();
 }
 
 function handleApiKey(val) {
@@ -457,38 +651,38 @@ function updateApiStatus() {
 }
 
 function bindSettings() {
-  document.getElementById('genreSelect').addEventListener('change', e => state.genre = e.target.value);
-  document.getElementById('styleSelect').addEventListener('change', e => state.channelStyle = e.target.value);
-  document.getElementById('targetSelect').addEventListener('change', e => state.targetAge = e.target.value);
+  document.getElementById('genreSelect').onchange = e => state.genre = e.target.value;
+  document.getElementById('styleSelect').onchange = e => state.channelStyle = e.target.value;
+  document.getElementById('targetSelect').onchange = e => state.targetAge = e.target.value;
 }
 
 // ===== STEP TOGGLE =====
-function toggleStep(n) {
-  const el = document.getElementById('step' + n);
-  el.classList.toggle('open');
-}
-
+function toggleStep(n) { document.getElementById('step' + n).classList.toggle('open'); }
 function openStep(n) {
-  document.getElementById('step' + n).classList.add('open');
-  document.getElementById('step' + n).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const el = document.getElementById('step' + n);
+  el.classList.add('open');
+  setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
-
 function completeStep(n, summary) {
   const el = document.getElementById('step' + n);
-  el.classList.add('completed');
-  el.classList.remove('active');
-  const sumEl = document.getElementById('step' + n + 'Summary');
-  if (sumEl && summary) sumEl.textContent = summary;
-  // activate next
+  el.classList.add('completed'); el.classList.remove('active');
+  const s = document.getElementById('step' + n + 'Summary');
+  if (s && summary) s.textContent = summary;
   const next = document.getElementById('step' + (n + 1));
   if (next) { next.classList.add('active'); openStep(n + 1); }
-  // collapse current
   el.classList.remove('open');
+}
+function toggleGuide(n) {
+  const g = document.getElementById('guide' + n);
+  g.classList.toggle('show');
 }
 
 // ===== CLAUDE API =====
 async function callClaude(prompt, outputEl, onDone) {
-  if (!state.apiKey) { showError(outputEl.id.replace('Output','Error').replace('Grid','Error').replace('List','Error'), 'API Key를 입력해주세요.'); return; }
+  if (!state.apiKey) { throw new Error('API Key를 입력해주세요.'); }
+  const estInputTokens = Math.ceil(prompt.length / 3);
+  state.cost.inputTokens += estInputTokens;
+  state.cost.apiCalls++;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -505,17 +699,11 @@ async function callClaude(prompt, outputEl, onDone) {
       messages: [{ role: 'user', content: prompt }]
     })
   });
-
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`API 오류 (${response.status}): ${err}`);
-  }
+  if (!response.ok) { const err = await response.text(); throw new Error('API 오류 (' + response.status + '): ' + err); }
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
-  let full = '';
-  let buffer = '';
-
+  let full = '', buffer = '';
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -530,26 +718,35 @@ async function callClaude(prompt, outputEl, onDone) {
         const json = JSON.parse(data);
         if (json.type === 'content_block_delta' && json.delta?.text) {
           full += json.delta.text;
-          if (outputEl) {
-            outputEl.style.display = 'block';
-            outputEl.textContent = full;
-          }
+          if (outputEl) { outputEl.style.display = 'block'; outputEl.textContent = full; }
+        }
+        if (json.type === 'message_delta' && json.usage) {
+          state.cost.outputTokens += json.usage.output_tokens || 0;
         }
       } catch {}
     }
   }
+  const estOutputTokens = Math.ceil(full.length / 3);
+  state.cost.outputTokens += estOutputTokens;
+  updateCostDisplay();
   if (onDone) onDone(full);
   return full;
 }
 
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  if (el) el.innerHTML = `<div class="error-msg">${msg}</div>`;
-}
+function showError(id, msg) { const el = document.getElementById(id); if (el) el.innerHTML = '<div class="error-msg">' + msg + '</div>'; }
+function clearError(id) { const el = document.getElementById(id); if (el) el.innerHTML = ''; }
 
-function clearError(id) {
-  const el = document.getElementById(id);
-  if (el) el.innerHTML = '';
+// ===== COST DISPLAY =====
+function updateCostDisplay() {
+  // Sonnet pricing: $3/MTok input, $15/MTok output
+  const inputCost = (state.cost.inputTokens / 1000000) * 3;
+  const outputCost = (state.cost.outputTokens / 1000000) * 15;
+  const total = inputCost + outputCost;
+  const krw = Math.round(total * 1450);
+  document.getElementById('costApi').textContent = '$' + total.toFixed(4);
+  document.getElementById('costTotal').textContent = '$' + total.toFixed(4);
+  document.getElementById('costKrw').textContent = '\u20A9' + krw.toLocaleString();
+  document.getElementById('costTokens').textContent = (state.cost.inputTokens + state.cost.outputTokens).toLocaleString();
 }
 
 // ===== STEP 1: TOPICS =====
@@ -557,62 +754,32 @@ async function generateTopics() {
   const keyword = document.getElementById('keywordInput').value.trim();
   if (!keyword) return;
   state.step1.keyword = keyword;
-
   const btn = document.getElementById('topicBtn');
   const loading = document.getElementById('topicLoading');
   const grid = document.getElementById('topicGrid');
   btn.disabled = true; loading.style.display = 'flex'; grid.innerHTML = '';
   clearError('topicError');
 
-  const genre = GENRE_LABELS[state.genre] || '경제';
-  const target = TARGET_LABELS[state.targetAge] || '30대';
-
-  const prompt = `당신은 15년차 ${genre} 유튜브 콘텐츠 PD입니다.
-입력된 키워드: ${keyword}
-장르: ${genre} / 타겟: ${target}
-
-조건:
-- 30~40대가 클릭할 심리적 트리거 포함
-- "왜", "몰랐던", "충격", "비밀" 등 후킹 요소
-- 검색 수요가 있는 시의성 있는 주제
-- 유튜브 알고리즘에 최적화된 제목 형식
-
-유튜브 영상 주제 10개를 번호 목록으로 출력하세요.
-각 주제 옆에 예상 조회수 포텐셜을 ★1~5로 표시하세요.
-
-출력 형식 (반드시 준수):
-1. 주제 제목 ★★★★
-2. 주제 제목 ★★★★★
-...`;
+  const prompt = '당신은 15년차 ' + GENRE_LABELS[state.genre] + ' 유튜브 콘텐츠 PD입니다.\n입력된 키워드: ' + keyword + '\n장르: ' + GENRE_LABELS[state.genre] + ' / 타겟: ' + TARGET_LABELS[state.targetAge] + '\n\n조건:\n- 30~40대가 클릭할 심리적 트리거 포함\n- "왜", "몰랐던", "충격", "비밀" 등 후킹 요소\n- 검색 수요가 있는 시의성 있는 주제\n- 유튜브 알고리즘에 최적화된 제목 형식\n\n유튜브 영상 주제 10개를 번호 목록으로 출력하세요.\n각 주제 옆에 예상 조회수 포텐셜을 ★1~5로 표시하세요.';
 
   try {
     const result = await callClaude(prompt, null, null);
     const topics = [];
-    const lines = result.split('\n');
-    for (const line of lines) {
+    for (const line of result.split('\n')) {
       const m = line.match(/^\s*(\d+)[.\)]\s*(.+?)(\s*★+)?\s*$/);
-      if (m) {
-        topics.push({ num: m[1], text: m[2].trim(), stars: (m[3] || '').trim() });
-      }
+      if (m) topics.push({ num: m[1], text: m[2].trim(), stars: (m[3] || '').trim() });
     }
     state.step1.topics = topics;
     renderTopics(topics);
     document.getElementById('customTopicRow').style.display = 'block';
-  } catch (e) {
-    showError('topicError', e.message);
-  }
+  } catch (e) { showError('topicError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
 
 function renderTopics(topics) {
-  const grid = document.getElementById('topicGrid');
-  grid.innerHTML = topics.map((t, i) => `
-    <div class="topic-card" onclick="selectTopic(${i})" id="topicCard${i}">
-      <div class="topic-num">${t.num}.</div>
-      <div class="topic-text">${t.text}</div>
-      <div class="topic-stars">${t.stars}</div>
-    </div>
-  `).join('');
+  document.getElementById('topicGrid').innerHTML = topics.map((t, i) =>
+    '<div class="topic-card" onclick="selectTopic(' + i + ')" id="tc' + i + '"><div class="topic-num">' + t.num + '.</div><div class="topic-text">' + t.text + '</div><div class="topic-stars">' + t.stars + '</div></div>'
+  ).join('');
 }
 
 function selectTopic(idx) {
@@ -642,7 +809,6 @@ function selectCustomTopic() {
 async function generateScript() {
   const topic = state.step2.selectedTopic;
   if (!topic) return;
-
   const btn = document.getElementById('scriptBtn');
   const loading = document.getElementById('scriptLoading');
   const output = document.getElementById('scriptOutput');
@@ -650,84 +816,143 @@ async function generateScript() {
   btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
   clearError('scriptError');
 
-  const genre = GENRE_LABELS[state.genre];
-  const style = STYLE_LABELS[state.channelStyle];
-  const target = TARGET_LABELS[state.targetAge];
-
-  const prompt = `당신은 구독자 50만 유튜브 ${genre} 채널의 대본 작가입니다.
-주제: ${topic}
-채널 스타일: ${style}
-타겟: ${target}
-
-대본 구조 (반드시 준수):
-[인트로 - 30초]: 충격적 사실로 시작, 시청 이유 제시
-[본론 1막]: 문제 제기 및 배경 설명
-[본론 2막]: 핵심 분석 및 데이터
-[본론 3막]: 실생활 영향 및 솔루션
-[아웃트로]: 핵심 정리 + CTA (구독/좋아요)
-
-조건:
-- 구어체로 작성 (방송 언어 X, 친구에게 말하듯)
-- 전문 용어는 반드시 쉽게 풀어서 설명
-- 크리에이터의 개인 의견/사견 반드시 포함
-- 역설적/반어적 표현으로 후킹 강화
-- 각 단락 시작에 [장면태그] 표시
-  예: [놀라는표정], [분석중], [결론발표]
-- 총 글자수: 8,000~10,000자`;
+  const prompt = '당신은 구독자 50만 유튜브 ' + GENRE_LABELS[state.genre] + ' 채널의 대본 작가입니다.\n주제: ' + topic + '\n채널 스타일: ' + STYLE_LABELS[state.channelStyle] + '\n타겟: ' + TARGET_LABELS[state.targetAge] + '\n\n대본 구조 (반드시 준수):\n[인트로 - 30초]: 충격적 사실로 시작, 시청 이유 제시\n[본론 1막]: 문제 제기 및 배경 설명\n[본론 2막]: 핵심 분석 및 데이터\n[본론 3막]: 실생활 영향 및 솔루션\n[아웃트로]: 핵심 정리 + CTA (구독/좋아요)\n\n조건:\n- 구어체로 작성 (방송 언어 X, 친구에게 말하듯)\n- 전문 용어는 반드시 쉽게 풀어서 설명\n- 크리에이터의 개인 의견/사견 반드시 포함\n- 역설적/반어적 표현으로 후킹 강화\n- 각 단락 시작에 [장면태그] 표시\n  예: [놀라는표정], [분석중], [결론발표]\n- 총 글자수: 8,000~10,000자';
 
   try {
-    const result = await callClaude(prompt, output, (text) => {
+    await callClaude(prompt, output, (text) => {
       state.step2.script = text;
-      const charCount = text.length;
-      const minutes = Math.floor(charCount / 500);
-      const seconds = Math.round((charCount % 500) / 500 * 60);
-      document.getElementById('scriptMeta').textContent = `${charCount.toLocaleString()}자 | 약 ${minutes}분 ${seconds}초`;
+      const cc = text.length;
+      const min = Math.floor(cc / 500), sec = Math.round((cc % 500) / 500 * 60);
+      document.getElementById('scriptMeta').textContent = cc.toLocaleString() + '자 | 약 ' + min + '분 ' + sec + '초';
       document.getElementById('promptBtn').disabled = false;
-      completeStep(2, `${charCount.toLocaleString()}자 대본 완성`);
+      document.getElementById('rewriteBar').style.display = 'flex';
+      document.getElementById('ttsPanel').style.display = 'block';
+      document.getElementById('ttsStatus').textContent = '대본이 준비되었습니다. 재생 버튼을 눌러 미리 들어보세요.';
+      completeStep(2, cc.toLocaleString() + '자 대본 완성');
     });
-  } catch (e) {
-    showError('scriptError', e.message);
-  }
+  } catch (e) { showError('scriptError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
+
+// ===== REWRITE (Feature 3) =====
+async function rewriteScript(mode) {
+  if (!state.step2.script) return;
+  if (mode === 'custom') { document.getElementById('rewriteModal').classList.add('show'); return; }
+
+  const instructions = {
+    more_hook: '아래 대본의 인트로와 각 파트 시작을 더 자극적이고 충격적으로 수정하세요. 후킹 요소를 강화하세요. 나머지 구조는 유지하세요.',
+    softer: '아래 대본의 전체 톤을 더 부드럽고 친근하게 수정하세요. 공격적이거나 자극적인 표현을 온화하게 바꾸세요.',
+    shorter: '아래 대본을 핵심만 남기고 6,000~7,000자로 줄이세요. 구조는 유지하되 불필요한 반복과 부연 설명을 제거하세요.',
+    longer: '아래 대본에 추가 데이터, 사례, 비유를 넣어 10,000~12,000자로 늘리세요. 구조는 유지하세요.',
+    more_data: '아래 대본에 구체적인 수치, 통계, 연구 결과, 역사적 사례를 추가하세요. 팩트 기반으로 설득력을 높이세요.',
+    more_opinion: '아래 대본에 크리에이터의 개인 의견, 사견, 예측을 더 강하게 넣으세요. "제 생각에는", "솔직히 말하면" 등의 표현을 활용하세요.'
+  };
+
+  const output = document.getElementById('scriptOutput');
+  const loading = document.getElementById('scriptLoading');
+  loading.style.display = 'flex';
+
+  const prompt = instructions[mode] + '\n\n[원본 대본]\n' + state.step2.script;
+  try {
+    output.textContent = '';
+    await callClaude(prompt, output, (text) => {
+      state.step2.script = text;
+      const cc = text.length;
+      const min = Math.floor(cc / 500), sec = Math.round((cc % 500) / 500 * 60);
+      document.getElementById('scriptMeta').textContent = cc.toLocaleString() + '자 | 약 ' + min + '분 ' + sec + '초 (리라이팅됨)';
+    });
+  } catch (e) { showError('scriptError', e.message); }
+  loading.style.display = 'none';
+}
+
+function closeRewriteModal() { document.getElementById('rewriteModal').classList.remove('show'); }
+async function submitCustomRewrite() {
+  const instruction = document.getElementById('rewriteInstruction').value.trim();
+  if (!instruction) return;
+  closeRewriteModal();
+  const output = document.getElementById('scriptOutput');
+  const loading = document.getElementById('scriptLoading');
+  loading.style.display = 'flex';
+  const prompt = '다음 지시에 따라 아래 대본을 수정하세요:\n지시: ' + instruction + '\n\n[원본 대본]\n' + state.step2.script;
+  try {
+    output.textContent = '';
+    await callClaude(prompt, output, (text) => {
+      state.step2.script = text;
+      const cc = text.length;
+      const min = Math.floor(cc / 500), sec = Math.round((cc % 500) / 500 * 60);
+      document.getElementById('scriptMeta').textContent = cc.toLocaleString() + '자 | 약 ' + min + '분 ' + sec + '초 (리라이팅됨)';
+    });
+  } catch (e) { showError('scriptError', e.message); }
+  loading.style.display = 'none';
+}
+
+// ===== TTS (Feature 1) =====
+function initTTSVoices() {
+  const sel = document.getElementById('ttsVoiceSelect');
+  function populate() {
+    const voices = speechSynthesis.getVoices();
+    const ko = voices.filter(v => v.lang.startsWith('ko'));
+    const others = voices.filter(v => !v.lang.startsWith('ko')).slice(0, 5);
+    sel.innerHTML = '';
+    if (ko.length === 0 && voices.length === 0) { sel.innerHTML = '<option>음성 로딩 중...</option>'; return; }
+    ko.forEach((v, i) => { const o = document.createElement('option'); o.value = v.name; o.textContent = v.name + ' (한국어)'; sel.appendChild(o); });
+    others.forEach(v => { const o = document.createElement('option'); o.value = v.name; o.textContent = v.name; sel.appendChild(o); });
+  }
+  populate();
+  speechSynthesis.onvoiceschanged = populate;
+}
+
+function ttsPlay() {
+  if (!state.step2.script) return;
+  if (ttsPlaying && speechSynthesis.paused) { speechSynthesis.resume(); return; }
+  speechSynthesis.cancel();
+  ttsUtterance = new SpeechSynthesisUtterance(state.step2.script);
+  const selName = document.getElementById('ttsVoiceSelect').value;
+  const voice = speechSynthesis.getVoices().find(v => v.name === selName);
+  if (voice) ttsUtterance.voice = voice;
+  ttsUtterance.rate = parseFloat(document.getElementById('ttsSpeed').value);
+  ttsUtterance.pitch = parseFloat(document.getElementById('ttsPitch').value);
+  ttsUtterance.lang = 'ko-KR';
+
+  const totalLen = state.step2.script.length;
+  let charIdx = 0;
+  ttsUtterance.onboundary = (e) => {
+    charIdx = e.charIndex;
+    const pct = Math.min(100, (charIdx / totalLen) * 100);
+    document.getElementById('ttsProgressBar').style.width = pct + '%';
+    document.getElementById('ttsStatus').textContent = Math.round(pct) + '% 재생 중...';
+  };
+  ttsUtterance.onend = () => {
+    ttsPlaying = false;
+    document.getElementById('ttsProgressBar').style.width = '100%';
+    document.getElementById('ttsStatus').textContent = '재생 완료';
+  };
+  ttsUtterance.onerror = () => { ttsPlaying = false; document.getElementById('ttsStatus').textContent = '재생 오류 발생'; };
+
+  speechSynthesis.speak(ttsUtterance);
+  ttsPlaying = true;
+  document.getElementById('ttsStatus').textContent = '재생 중...';
+}
+function ttsPause() { if (ttsPlaying) speechSynthesis.pause(); document.getElementById('ttsStatus').textContent = '일시정지'; }
+function ttsStop() { speechSynthesis.cancel(); ttsPlaying = false; document.getElementById('ttsProgressBar').style.width = '0%'; document.getElementById('ttsStatus').textContent = '정지됨'; }
 
 // ===== STEP 3: IMAGE PROMPTS =====
 async function generateImagePrompts() {
   const script = state.step2.script;
   if (!script) return;
-
   const btn = document.getElementById('promptBtn');
   const loading = document.getElementById('promptLoading');
   const list = document.getElementById('promptList');
   btn.disabled = true; loading.style.display = 'flex'; list.innerHTML = '';
   clearError('promptError');
 
-  const style = state.channelStyle;
   let styleGuide = '';
-  if (style === 'semi-real') styleGuide = 'photorealistic Korean person, clean white background, professional lighting, 4K';
-  else if (style === 'zolaman') styleGuide = 'simple stick figure animation, white background, bold outline';
-  else if (style === 'ghibli') styleGuide = 'Studio Ghibli animation style, soft colors, detailed background';
+  if (state.channelStyle === 'semi-real') styleGuide = 'photorealistic Korean person, clean white background, professional lighting, 4K';
+  else if (state.channelStyle === 'zolaman') styleGuide = 'simple stick figure animation, white background, bold outline';
+  else if (state.channelStyle === 'ghibli') styleGuide = 'Studio Ghibli animation style, soft colors, detailed background';
   else styleGuide = 'realistic photography style, high quality, 4K';
 
-  const prompt = `당신은 AI 이미지 생성 전문가입니다.
-아래 대본의 각 장면 태그([...])에 맞는 이미지 프롬프트를 생성하세요.
-
-채널 스타일: ${STYLE_LABELS[style]}
-스타일 가이드: "${styleGuide}"
-
-대본:
-${script.substring(0, 6000)}
-
-출력 형식 (반드시 준수):
-번호. [장면태그] 한국어 설명
-EN: 영어프롬프트 (Whisk/Gemini 최적화, 100자 이내)
-
-조건:
-- 캐릭터 일관성 유지 설명 포함
-- 배경은 흰색 또는 단색 권장
-- 텍스트/글자 포함 금지
-- 각 프롬프트는 독립적으로 사용 가능하도록 작성
-- 최소 40개 이상 생성`;
+  const prompt = '당신은 AI 이미지 생성 전문가입니다.\n아래 대본의 각 장면 태그([...])에 맞는 이미지 프롬프트를 생성하세요.\n\n채널 스타일: ' + STYLE_LABELS[state.channelStyle] + '\n스타일 가이드: "' + styleGuide + '"\n\n대본:\n' + script.substring(0, 6000) + '\n\n출력 형식 (반드시 준수):\n번호. [장면태그] 한국어 설명\nEN: 영어프롬프트 (Whisk/Gemini 최적화, 100자 이내)\n\n조건:\n- 캐릭터 일관성 유지 설명 포함\n- 배경은 흰색 또는 단색 권장\n- 텍스트/글자 포함 금지\n- 각 프롬프트는 독립적으로 사용 가능하도록 작성\n- 최소 40개 이상 생성';
 
   try {
     const result = await callClaude(prompt, null, null);
@@ -737,74 +962,47 @@ EN: 영어프롬프트 (Whisk/Gemini 최적화, 100자 이내)
     renderPrompts(prompts);
     document.getElementById('autoWhiskBtn').style.display = 'inline-flex';
     document.getElementById('downloadPromptsBtn').style.display = 'inline-flex';
-    completeStep(3, `${prompts.length}개 프롬프트 생성 완료`);
-  } catch (e) {
-    showError('promptError', e.message);
-  }
+    completeStep(3, prompts.length + '개 프롬프트 생성 완료');
+  } catch (e) { showError('promptError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
 
 function parsePrompts(text) {
-  const prompts = [];
-  const lines = text.split('\n');
-  let current = null;
-
+  const prompts = []; const lines = text.split('\n'); let cur = null;
   for (const line of lines) {
-    const numMatch = line.match(/^\s*(\d+)\.\s*(\[.*?\])?\s*(.*)/);
-    if (numMatch) {
-      if (current) prompts.push(current);
-      current = { num: numMatch[1], tag: numMatch[2] || '', ko: numMatch[3] || '', en: '' };
-      continue;
-    }
-    const enMatch = line.match(/^\s*EN:\s*(.*)/i);
-    if (enMatch && current) {
-      current.en = enMatch[1].trim();
-      continue;
-    }
-    // fallback: if line looks like an english prompt
-    if (current && !current.en && /^[A-Za-z]/.test(line.trim()) && line.trim().length > 20) {
-      current.en = line.trim();
-    }
+    const nm = line.match(/^\s*(\d+)\.\s*(\[.*?\])?\s*(.*)/);
+    if (nm) { if (cur) prompts.push(cur); cur = { num: nm[1], tag: nm[2]||'', ko: nm[3]||'', en: '' }; continue; }
+    const en = line.match(/^\s*EN:\s*(.*)/i);
+    if (en && cur) { cur.en = en[1].trim(); continue; }
+    if (cur && !cur.en && /^[A-Za-z]/.test(line.trim()) && line.trim().length > 20) cur.en = line.trim();
   }
-  if (current) prompts.push(current);
+  if (cur) prompts.push(cur);
   return prompts;
 }
 
 function renderPrompts(prompts) {
-  const list = document.getElementById('promptList');
-  list.innerHTML = prompts.map((p, i) => `
-    <div class="prompt-card">
-      <div class="scene-tag">${p.num}. ${p.tag}</div>
-      <div class="ko-desc">${p.ko}</div>
-      <div class="en-prompt">${p.en}</div>
-      <button class="btn btn-copy copy-btn" onclick="copyOne(this, ${i})">복사</button>
-    </div>
-  `).join('');
+  document.getElementById('promptList').innerHTML = prompts.map((p, i) =>
+    '<div class="prompt-card"><div class="scene-tag">' + p.num + '. ' + p.tag + '</div><div class="ko-desc">' + p.ko + '</div><div class="en-prompt">' + p.en + '</div><button class="btn btn-copy copy-btn" onclick="copyOne(this,' + i + ')">복사</button></div>'
+  ).join('');
 }
 
 function copyAutoWhisk() {
-  const enOnly = state.step3.prompts.map(p => p.en).filter(Boolean).join('\n');
-  navigator.clipboard.writeText(enOnly);
-  const btn = document.getElementById('autoWhiskBtn');
-  btn.textContent = 'AutoWhisk에 붙여넣기 하세요';
-  btn.classList.add('copied');
-  setTimeout(() => { btn.textContent = 'AutoWhisk 복사'; btn.classList.remove('copied'); }, 3000);
+  const t = state.step3.prompts.map(p => p.en).filter(Boolean).join('\n');
+  navigator.clipboard.writeText(t);
+  const b = document.getElementById('autoWhiskBtn');
+  b.textContent = 'AutoWhisk에 붙여넣기 하세요'; b.classList.add('copied');
+  setTimeout(() => { b.textContent = 'AutoWhisk 복사'; b.classList.remove('copied'); }, 3000);
 }
 
-function copyOne(btnEl, idx) {
+function copyOne(btn, idx) {
   navigator.clipboard.writeText(state.step3.prompts[idx].en);
-  btnEl.textContent = '완료';
-  btnEl.classList.add('copied');
-  setTimeout(() => { btnEl.textContent = '복사'; btnEl.classList.remove('copied'); }, 2000);
+  btn.textContent = '완료'; btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 2000);
 }
 
 function downloadPrompts() {
-  const text = state.step3.prompts.map(p => `${p.num}. ${p.tag} ${p.ko}\nEN: ${p.en}`).join('\n\n');
-  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'image-prompts.txt';
-  a.click();
+  const t = state.step3.prompts.map(p => p.num + '. ' + p.tag + ' ' + p.ko + '\nEN: ' + p.en).join('\n\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], {type:'text/plain;charset=utf-8'})); a.download = 'image-prompts.txt'; a.click();
 }
 
 // ===== STEP 4: CHARACTER SHEET =====
@@ -812,48 +1010,21 @@ async function generateCharSheet() {
   const btn = document.getElementById('charBtn');
   const loading = document.getElementById('charLoading');
   const output = document.getElementById('charOutput');
-  const header = document.getElementById('charHeader');
-  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
+  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block';
+  document.getElementById('charHeader').style.display = 'flex';
   clearError('charError');
 
   const gender = document.getElementById('charGender').value === 'male' ? '남성' : '여성';
-  const age = document.getElementById('charAge').value;
-  const job = { office: '직장인', expert: '전문가', casual: '캐주얼' }[document.getElementById('charJob').value];
-  const hair = { short: '짧은 헤어', medium: '단발', long: '장발' }[document.getElementById('charHair').value];
+  const age = TARGET_LABELS[document.getElementById('charAge').value];
+  const job = {office:'직장인',expert:'전문가',casual:'캐주얼'}[document.getElementById('charJob').value];
+  const hair = {short:'짧은 헤어',medium:'단발',long:'장발'}[document.getElementById('charHair').value];
   const glasses = document.getElementById('charGlasses').value === 'yes' ? ', 안경 착용' : '';
-  const style = STYLE_LABELS[state.channelStyle];
 
-  const prompt = `당신은 AI 이미지 생성 전문가이자 유튜브 캐릭터 디자이너입니다.
-
-캐릭터 설정:
-- 성별: ${gender}
-- 연령대: ${TARGET_LABELS[age]}
-- 직업 이미지: ${job}
-- 헤어: ${hair}${glasses}
-- 채널 스타일: ${style}
-
-다음 항목을 생성하세요:
-
-1. 전체적 외형 설명 (한국어, 상세하게)
-2. Whisk Subject 업로드용 프롬프트 (영어)
-3. AutoWhisk 레퍼런스 이미지용 프롬프트 (영어)
-4. 표정 변형 프롬프트 5종 (영어):
-   - 기본 (neutral)
-   - 놀람 (surprised)
-   - 분석 (thinking/analyzing)
-   - 결론 (confident/concluding)
-   - 공감 (empathetic)
-
-각 프롬프트는 Whisk/Gemini에서 캐릭터 일관성을 유지할 수 있도록 핵심 외형 특징을 반복 포함하세요.`;
+  const prompt = '당신은 AI 이미지 생성 전문가이자 유튜브 캐릭터 디자이너입니다.\n\n캐릭터 설정:\n- 성별: ' + gender + '\n- 연령대: ' + age + '\n- 직업 이미지: ' + job + '\n- 헤어: ' + hair + glasses + '\n- 채널 스타일: ' + STYLE_LABELS[state.channelStyle] + '\n\n다음 항목을 생성하세요:\n\n1. 전체적 외형 설명 (한국어, 상세하게)\n2. Whisk Subject 업로드용 프롬프트 (영어)\n3. AutoWhisk 레퍼런스 이미지용 프롬프트 (영어)\n4. 표정 변형 프롬프트 5종 (영어):\n   - 기본 (neutral)\n   - 놀람 (surprised)\n   - 분석 (thinking/analyzing)\n   - 결론 (confident/concluding)\n   - 공감 (empathetic)\n\n각 프롬프트는 Whisk/Gemini에서 캐릭터 일관성을 유지할 수 있도록 핵심 외형 특징을 반복 포함하세요.';
 
   try {
-    await callClaude(prompt, output, (text) => {
-      state.step4.sheet = text;
-      completeStep(4, '캐릭터 시트 생성 완료');
-    });
-  } catch (e) {
-    showError('charError', e.message);
-  }
+    await callClaude(prompt, output, (text) => { state.step4.sheet = text; completeStep(4, '캐릭터 시트 완성'); });
+  } catch (e) { showError('charError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
 
@@ -861,195 +1032,249 @@ async function generateCharSheet() {
 async function generateThumbnails() {
   const topic = state.step2.selectedTopic;
   if (!topic) return;
-
   const btn = document.getElementById('thumbBtn');
   const loading = document.getElementById('thumbLoading');
   const grid = document.getElementById('thumbGrid');
   btn.disabled = true; loading.style.display = 'flex'; grid.innerHTML = '';
   clearError('thumbError');
 
-  const style = STYLE_LABELS[state.channelStyle];
-  const target = TARGET_LABELS[state.targetAge];
-
-  const prompt = `당신은 유튜브 썸네일 전문 디자이너입니다.
-영상 주제: ${topic}
-채널 스타일: ${style}
-타겟: ${target}
-
-햄찌교수 채널 썸네일 특징 참고:
-- 강렬한 한국어 텍스트 (2~4단어)
-- AI 인물 이미지 배치
-- 감정 유발 색상 (빨강/노랑 계열)
-- 충격/의문 심리 활용
-
-썸네일 3종 생성:
-
-반드시 아래 JSON 형식으로만 출력하세요:
-[
-  {
-    "type": "A",
-    "typeName": "충격/경고형",
-    "mainText": "썸네일 한국어 문구",
-    "prompt": "영어 이미지 프롬프트",
-    "bgColor": "#hex"
-  },
-  {
-    "type": "B",
-    "typeName": "궁금증/비밀형",
-    "mainText": "썸네일 한국어 문구",
-    "prompt": "영어 이미지 프롬프트",
-    "bgColor": "#hex"
-  },
-  {
-    "type": "C",
-    "typeName": "해결책/희망형",
-    "mainText": "썸네일 한국어 문구",
-    "prompt": "영어 이미지 프롬프트",
-    "bgColor": "#hex"
-  }
-]`;
+  const prompt = '당신은 유튜브 썸네일 전문 디자이너입니다.\n영상 주제: ' + topic + '\n채널 스타일: ' + STYLE_LABELS[state.channelStyle] + '\n타겟: ' + TARGET_LABELS[state.targetAge] + '\n\n썸네일 3종 생성. 반드시 아래 JSON 형식으로만 출력하세요:\n[\n  {"type":"A","typeName":"충격/경고형","mainText":"썸네일 문구","prompt":"영어 프롬프트","bgColor":"#hex"},\n  {"type":"B","typeName":"궁금증/비밀형","mainText":"썸네일 문구","prompt":"영어 프롬프트","bgColor":"#hex"},\n  {"type":"C","typeName":"해결책/희망형","mainText":"썸네일 문구","prompt":"영어 프롬프트","bgColor":"#hex"}\n]';
 
   try {
     const result = await callClaude(prompt, null, null);
-    state.step5.thumbnails = result;
     let thumbs;
-    try {
-      const jsonMatch = result.match(/\[[\s\S]*\]/);
-      thumbs = JSON.parse(jsonMatch[0]);
-    } catch {
-      thumbs = [{ type: 'A', typeName: '결과', mainText: '파싱 실패', prompt: result, bgColor: '#333' }];
-    }
+    try { thumbs = JSON.parse(result.match(/\[[\s\S]*\]/)[0]); } catch { thumbs = [{type:'A',typeName:'결과',mainText:'파싱 실패',prompt:result,bgColor:'#333'}]; }
     renderThumbnails(thumbs);
-    completeStep(5, '썸네일 3종 생성 완료');
-  } catch (e) {
-    showError('thumbError', e.message);
-  }
+    completeStep(5, '썸네일 3종 완성');
+  } catch (e) { showError('thumbError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
 
 function renderThumbnails(thumbs) {
-  const grid = document.getElementById('thumbGrid');
-  grid.innerHTML = thumbs.map(t => `
-    <div class="thumb-card">
-      <div class="type-badge">${t.type}타입: ${t.typeName}</div>
-      <div class="thumb-text">${t.mainText}</div>
-      <div style="margin-bottom:8px">
-        <span class="color-swatch" style="background:${t.bgColor}"></span>
-        <span style="color:var(--gray);font-size:0.8rem;font-family:var(--mono)">${t.bgColor}</span>
-      </div>
-      <div style="font-size:0.85rem;font-family:var(--mono);color:var(--gray);line-height:1.5;margin-bottom:8px">${t.prompt}</div>
-      <button class="btn btn-copy" onclick="copyThis(this,'${t.prompt.replace(/'/g,"\\'")}')">프롬프트 복사</button>
-    </div>
-  `).join('');
+  document.getElementById('thumbGrid').innerHTML = thumbs.map(t =>
+    '<div class="thumb-card"><div class="type-badge">' + t.type + '타입: ' + t.typeName + '</div><div class="thumb-text">' + t.mainText + '</div><div style="margin-bottom:8px"><span class="color-swatch" style="background:' + t.bgColor + '"></span><span style="color:var(--gray);font-size:0.78rem;font-family:var(--mono)">' + t.bgColor + '</span></div><div style="font-size:0.82rem;font-family:var(--mono);color:var(--gray);line-height:1.5;margin-bottom:8px">' + t.prompt + '</div><button class="btn btn-copy" onclick="navigator.clipboard.writeText(\'' + t.prompt.replace(/'/g,"\\'") + '\');this.textContent=\'복사 완료\';this.classList.add(\'copied\');setTimeout(()=>{this.textContent=\'프롬프트 복사\';this.classList.remove(\'copied\')},2000)">프롬프트 복사</button></div>'
+  ).join('');
 }
 
-// ===== STEP 6: UPLOAD OPTIMIZATION =====
+// ===== STEP 6: UPLOAD =====
 async function generateUploadTexts() {
   const topic = state.step2.selectedTopic;
-  const script = state.step2.script;
   if (!topic) return;
-
   const btn = document.getElementById('uploadBtn');
   const loading = document.getElementById('uploadLoading');
   const output = document.getElementById('uploadOutput');
-  const header = document.getElementById('uploadHeader');
-  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
+  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block';
+  document.getElementById('uploadHeader').style.display = 'flex';
   clearError('uploadError');
 
-  const genre = GENRE_LABELS[state.genre];
-
-  const prompt = `당신은 유튜브 SEO 전문가입니다.
-영상 주제: ${topic}
-장르: ${genre}
-${script ? '대본 요약 (앞부분):\n' + script.substring(0, 2000) : ''}
-
-아래 6가지 항목을 모두 생성하세요:
-
-① 영상 제목 3종 (A/B/C 테스트용)
-② 영상 설명 (SEO 최적화, 해시태그 포함, 300자 이상)
-③ 태그 30개 (쉼표로 구분)
-④ 챕터 타임스탬프 (대본 구조 기반으로 예상 시간 배분)
-⑤ AI 생성 콘텐츠 고지 문구 (유튜브 정책 준수)
-⑥ 고정 댓글 초안 (시청자 참여 유도)
-
-각 항목은 명확하게 구분하여 출력하세요.`;
+  const prompt = '당신은 유튜브 SEO 전문가입니다.\n영상 주제: ' + topic + '\n장르: ' + GENRE_LABELS[state.genre] + '\n' + (state.step2.script ? '대본 앞부분:\n' + state.step2.script.substring(0,2000) : '') + '\n\n아래 6가지 항목을 모두 생성하세요:\n① 영상 제목 3종\n② 영상 설명 (SEO 최적화, 해시태그 포함, 300자 이상)\n③ 태그 30개\n④ 챕터 타임스탬프\n⑤ AI 생성 콘텐츠 고지 문구\n⑥ 고정 댓글 초안\n\n각 항목을 명확하게 구분하여 출력하세요.';
 
   try {
-    await callClaude(prompt, output, (text) => {
-      state.step6.uploadText = text;
-      completeStep(6, '업로드 텍스트 생성 완료');
-    });
-  } catch (e) {
-    showError('uploadError', e.message);
-  }
+    await callClaude(prompt, output, (text) => { state.step6.uploadText = text; completeStep(6, '업로드 텍스트 완성'); });
+  } catch (e) { showError('uploadError', e.message); }
   btn.disabled = false; loading.style.display = 'none';
 }
 
 // ===== STEP 7: CHECKLIST =====
 function renderChecklist() {
-  const el = document.getElementById('checklist');
-  el.innerHTML = CHECKLIST_ITEMS.map((item, i) => `
-    <div class="check-item${state.step7.checks[i] ? ' checked' : ''}" onclick="toggleCheck(${i})">
-      <div class="check-box">${state.step7.checks[i] ? '✓' : ''}</div>
-      <div class="check-label">${i + 1}. ${item}</div>
-    </div>
-  `).join('');
+  document.getElementById('checklist').innerHTML = CHECKLIST_ITEMS.map((item, i) =>
+    '<div class="check-item' + (state.step7.checks[i] ? ' checked' : '') + '" onclick="toggleCheck(' + i + ')"><div class="check-box">' + (state.step7.checks[i] ? '\u2713' : '') + '</div><div class="check-label">' + (i+1) + '. ' + item + '</div></div>'
+  ).join('');
   updateCheckResult();
 }
-
-function toggleCheck(idx) {
-  state.step7.checks[idx] = !state.step7.checks[idx];
-  renderChecklist();
-}
-
+function toggleCheck(idx) { state.step7.checks[idx] = !state.step7.checks[idx]; renderChecklist(); }
 function updateCheckResult() {
   const all = state.step7.checks.every(Boolean);
-  const count = state.step7.checks.filter(Boolean).length;
+  const cnt = state.step7.checks.filter(Boolean).length;
   const el = document.getElementById('checkResult');
-  if (count === 0) { el.innerHTML = ''; return; }
-  if (all) {
-    el.innerHTML = '<div class="check-result pass">안전한 영상입니다 (5/5 통과)</div>';
-    completeStep(7, '체크리스트 5/5 통과');
-  } else {
-    el.innerHTML = `<div class="check-result fail">${count}/5 완료 — 모든 항목을 확인해주세요</div>`;
+  if (cnt === 0) { el.innerHTML = ''; return; }
+  if (all) { el.innerHTML = '<div class="check-result pass">안전한 영상입니다 (5/5 통과)</div>'; }
+  else { el.innerHTML = '<div class="check-result fail">' + cnt + '/5 완료 \u2014 모든 항목을 확인해주세요</div>'; }
+}
+
+// ===== STEP 8: BGM (Feature 2) =====
+async function generateBGM() {
+  const loading = document.getElementById('bgmLoading');
+  const grid = document.getElementById('bgmGrid');
+  loading.style.display = 'flex'; grid.innerHTML = '';
+  clearError('bgmError');
+
+  const topic = state.step2.selectedTopic || '경제 콘텐츠';
+  const prompt = '당신은 유튜브 영상 BGM 전문가입니다.\n영상 주제: ' + topic + '\n장르: ' + GENRE_LABELS[state.genre] + '\n\n이 영상에 어울리는 BGM을 장면별로 추천하세요.\n\n반드시 아래 JSON 형식으로만 출력:\n[\n  {"scene":"인트로","mood":"긴장감/호기심","desc":"추천 BGM 스타일 설명","searchKeywords":["키워드1","키워드2"]},\n  {"scene":"본론 1막","mood":"분위기","desc":"설명","searchKeywords":["키워드1","키워드2"]},\n  {"scene":"본론 2막","mood":"분위기","desc":"설명","searchKeywords":["키워드1","키워드2"]},\n  {"scene":"본론 3막","mood":"분위기","desc":"설명","searchKeywords":["키워드1","키워드2"]},\n  {"scene":"아웃트로","mood":"분위기","desc":"설명","searchKeywords":["키워드1","키워드2"]}\n]';
+
+  try {
+    const result = await callClaude(prompt, null, null);
+    let bgms;
+    try { bgms = JSON.parse(result.match(/\[[\s\S]*\]/)[0]); } catch { bgms = [{scene:'전체',mood:'일반',desc:result,searchKeywords:['background music']}]; }
+    renderBGM(bgms);
+  } catch (e) { showError('bgmError', e.message); }
+  loading.style.display = 'none';
+}
+
+function renderBGM(bgms) {
+  document.getElementById('bgmGrid').innerHTML = bgms.map(b =>
+    '<div class="bgm-card"><div class="bgm-mood">[' + b.scene + '] ' + b.mood + '</div><div class="bgm-desc">' + b.desc + '</div><div class="bgm-links">' +
+    b.searchKeywords.map(k => '<a class="bgm-link" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(k + ' no copyright music') + '" target="_blank">' + k + '</a>').join('') +
+    '</div></div>'
+  ).join('');
+}
+
+function showBGMSites() {
+  const el = document.getElementById('bgmSites');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  const sites = [
+    {name:'YouTube Audio Library',desc:'유튜브 공식 무료 음원 라이브러리. 저작권 걱정 없이 사용 가능.',url:'https://studio.youtube.com/channel/UC/music'},
+    {name:'Pixabay Music',desc:'완전 무료, 상업적 사용 가능. 다양한 장르의 BGM 제공.',url:'https://pixabay.com/music/'},
+    {name:'Uppbeat',desc:'크리에이터 전용 무료 BGM. 월 10곡 무료 다운로드.',url:'https://uppbeat.io/'},
+    {name:'Artlist (유료)',desc:'프로급 BGM. 연 구독으로 무제한 사용. 퀄리티 최상.',url:'https://artlist.io/'},
+    {name:'Epidemic Sound (유료)',desc:'유튜브 크리에이터에게 인기. 40,000+ 트랙.',url:'https://www.epidemicsound.com/'},
+    {name:'FreePD',desc:'퍼블릭 도메인 음원. 완전 무료, 크레딧 불필요.',url:'https://freepd.com/'}
+  ];
+  document.getElementById('bgmSiteGrid').innerHTML = sites.map(s =>
+    '<div class="bgm-card"><div class="bgm-mood">' + s.name + '</div><div class="bgm-desc">' + s.desc + '</div><div class="bgm-links"><a class="bgm-link" href="' + s.url + '" target="_blank">사이트 방문</a></div></div>'
+  ).join('');
+}
+
+// ===== PROJECT MANAGER (Feature 4) =====
+function getProjects() {
+  try { return JSON.parse(localStorage.getItem('avm_projects') || '{}'); } catch { return {}; }
+}
+
+function saveProject() {
+  const nameInput = document.getElementById('projNameInput');
+  let name = nameInput.value.trim();
+  if (!name) {
+    const sel = document.getElementById('projectSelect');
+    name = sel.value || (state.step2.selectedTopic || new Date().toLocaleString('ko'));
   }
+
+  const projects = getProjects();
+  projects[name] = {
+    genre: state.genre, channelStyle: state.channelStyle, targetAge: state.targetAge,
+    step1: JSON.parse(JSON.stringify(state.step1)),
+    step2: { selectedTopic: state.step2.selectedTopic, script: state.step2.script },
+    step3: { rawText: state.step3.rawText, prompts: state.step3.prompts },
+    step4: { sheet: state.step4.sheet },
+    step5: { thumbnails: state.step5.thumbnails },
+    step6: { uploadText: state.step6.uploadText },
+    step7: { checks: [...state.step7.checks] },
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('avm_projects', JSON.stringify(projects));
+  loadProjectList();
+  document.getElementById('projectSelect').value = name;
+  nameInput.style.display = 'none'; nameInput.value = '';
+  alert('프로젝트 "' + name + '" 저장 완료!');
+}
+
+function loadProjectList() {
+  const projects = getProjects();
+  const sel = document.getElementById('projectSelect');
+  sel.innerHTML = '<option value="">-- 새 프로젝트 --</option>';
+  Object.keys(projects).sort().forEach(name => {
+    const o = document.createElement('option');
+    o.value = name;
+    const d = projects[name].savedAt ? ' (' + new Date(projects[name].savedAt).toLocaleDateString('ko') + ')' : '';
+    o.textContent = name + d;
+    sel.appendChild(o);
+  });
+}
+
+function loadProject(name) {
+  if (!name) { location.reload(); return; }
+  const projects = getProjects();
+  const p = projects[name];
+  if (!p) return;
+
+  state.genre = p.genre || 'economy'; state.channelStyle = p.channelStyle || 'semi-real'; state.targetAge = p.targetAge || '30s';
+  document.getElementById('genreSelect').value = state.genre;
+  document.getElementById('styleSelect').value = state.channelStyle;
+  document.getElementById('targetSelect').value = state.targetAge;
+
+  // Restore Step 1
+  if (p.step1) {
+    state.step1 = p.step1;
+    if (p.step1.keyword) document.getElementById('keywordInput').value = p.step1.keyword;
+    if (p.step1.topics?.length) { renderTopics(p.step1.topics); document.getElementById('customTopicRow').style.display = 'block'; }
+  }
+  // Restore Step 2
+  if (p.step2?.selectedTopic) {
+    state.step2 = p.step2;
+    document.getElementById('selectedTopicDisplay').textContent = p.step2.selectedTopic;
+    document.getElementById('scriptBtn').disabled = false;
+    document.getElementById('thumbBtn').disabled = false;
+    document.getElementById('uploadBtn').disabled = false;
+    if (p.step2.script) {
+      document.getElementById('scriptOutput').style.display = 'block';
+      document.getElementById('scriptOutput').textContent = p.step2.script;
+      document.getElementById('scriptHeader').style.display = 'flex';
+      document.getElementById('rewriteBar').style.display = 'flex';
+      document.getElementById('ttsPanel').style.display = 'block';
+      document.getElementById('promptBtn').disabled = false;
+      const cc = p.step2.script.length;
+      document.getElementById('scriptMeta').textContent = cc.toLocaleString() + '자';
+    }
+  }
+  // Restore Step 3
+  if (p.step3?.prompts?.length) {
+    state.step3 = p.step3;
+    renderPrompts(p.step3.prompts);
+    document.getElementById('autoWhiskBtn').style.display = 'inline-flex';
+    document.getElementById('downloadPromptsBtn').style.display = 'inline-flex';
+  }
+  // Restore Step 4
+  if (p.step4?.sheet) {
+    state.step4 = p.step4;
+    document.getElementById('charOutput').style.display = 'block';
+    document.getElementById('charOutput').textContent = p.step4.sheet;
+    document.getElementById('charHeader').style.display = 'flex';
+  }
+  // Restore Step 6
+  if (p.step6?.uploadText) {
+    state.step6 = p.step6;
+    document.getElementById('uploadOutput').style.display = 'block';
+    document.getElementById('uploadOutput').textContent = p.step6.uploadText;
+    document.getElementById('uploadHeader').style.display = 'flex';
+  }
+  // Restore Step 7
+  if (p.step7) { state.step7 = p.step7; renderChecklist(); }
+}
+
+function showRenameInput() {
+  const inp = document.getElementById('projNameInput');
+  inp.style.display = inp.style.display === 'none' ? 'block' : 'none';
+  inp.focus();
+}
+
+function deleteProject() {
+  const name = document.getElementById('projectSelect').value;
+  if (!name) return;
+  if (!confirm('"' + name + '" 프로젝트를 삭제하시겠습니까?')) return;
+  const projects = getProjects();
+  delete projects[name];
+  localStorage.setItem('avm_projects', JSON.stringify(projects));
+  loadProjectList();
+  location.reload();
 }
 
 // ===== UTILITY =====
-function copyText(elId) {
-  const text = document.getElementById(elId).textContent;
-  navigator.clipboard.writeText(text);
-  event.target.textContent = '복사 완료';
-  event.target.classList.add('copied');
-  setTimeout(() => { event.target.textContent = '전체 복사'; event.target.classList.remove('copied'); }, 2000);
-}
-
-function copyThis(btnEl, text) {
-  navigator.clipboard.writeText(text);
-  btnEl.textContent = '복사 완료';
-  btnEl.classList.add('copied');
-  setTimeout(() => { btnEl.textContent = '프롬프트 복사'; btnEl.classList.remove('copied'); }, 2000);
+function copyText(btn, elId) {
+  navigator.clipboard.writeText(document.getElementById(elId).textContent);
+  btn.textContent = '복사 완료'; btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = '전체 복사'; btn.classList.remove('copied'); }, 2000);
 }
 
 function calcRevenue() {
   const views = parseInt(document.getElementById('viewsInput').value) || 0;
   if (views <= 0) { document.getElementById('revenueResult').style.display = 'none'; return; }
   document.getElementById('revenueResult').style.display = 'grid';
-  const rpm = 12.5; // average RPM
-  const usd = (views / 1000 * rpm).toFixed(2);
-  const krw = Math.round(usd * 1350);
-  const monthly = Math.round(krw * 30);
+  const usd = (views / 1000 * 12.5).toFixed(2);
+  const krw = Math.round(usd * 1450);
   document.getElementById('revUsd').textContent = '$' + Number(usd).toLocaleString();
-  document.getElementById('revKrw').textContent = '₩' + krw.toLocaleString();
-  document.getElementById('revMonthly').textContent = '₩' + monthly.toLocaleString();
+  document.getElementById('revKrw').textContent = '\u20A9' + krw.toLocaleString();
+  document.getElementById('revMonthly').textContent = '\u20A9' + (krw * 30).toLocaleString();
 }
 
-function resetAll() {
-  if (!confirm('모든 작업 내용을 초기화하시겠습니까?')) return;
-  location.reload();
-}
-
-// Init
 init();
 </script>
 </body>

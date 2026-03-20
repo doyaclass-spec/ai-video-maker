@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Video Maker — 경제 롱폼 영상 자동화</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0E1A;--bg2:#111827;--bg3:#1F2937;--bg4:#374151;
+  --gold:#F5C842;--gold2:#D4A017;--gold-dim:rgba(245,200,66,0.15);
+  --white:#F9FAFB;--gray:#9CA3AF;--gray2:#6B7280;--gray3:#4B5563;
+  --green:#10B981;--red:#EF4444;--blue:#3B82F6;
+  --radius:12px;--radius-sm:8px;
+  --font:'Pretendard',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:100vh;line-height:1.6}
+input,select,textarea,button{font-family:inherit;font-size:inherit}
+
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:20px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px}
+.logo{font-size:1.6rem;font-weight:800;color:var(--gold);letter-spacing:-0.5px}
+.logo span{color:var(--gray);font-weight:400;font-size:0.9rem;margin-left:8px}
+.api-row{display:flex;align-items:center;gap:8px}
+.api-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:8px 14px;border-radius:var(--radius-sm);width:320px;font-family:var(--mono);font-size:0.85rem}
+.api-input:focus{outline:none;border-color:var(--gold)}
+.api-status{width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0}
+.api-status.ok{background:var(--green)}
+.settings-row{display:flex;gap:12px;flex-wrap:wrap}
+.setting-group{display:flex;align-items:center;gap:6px}
+.setting-group label{color:var(--gray);font-size:0.85rem;white-space:nowrap}
+.setting-group select{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer}
+.setting-group select:focus{outline:none;border-color:var(--gold)}
+
+/* Main */
+.main{max-width:1200px;margin:0 auto;padding:24px}
+
+/* Step */
+.step{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;transition:border-color 0.3s}
+.step.active{border-color:var(--gold)}
+.step.completed{border-color:var(--green)}
+.step-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.2s}
+.step-header:hover{background:var(--bg3)}
+.step-num{background:var(--bg4);color:var(--gray);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;transition:all 0.3s}
+.step.active .step-num{background:var(--gold);color:var(--bg)}
+.step.completed .step-num{background:var(--green);color:var(--white)}
+.step-title{font-weight:600;font-size:1.05rem;flex:1}
+.step-summary{color:var(--gray);font-size:0.85rem;max-width:400px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-chevron{color:var(--gray);transition:transform 0.3s;font-size:1.2rem}
+.step.open .step-chevron{transform:rotate(180deg)}
+.step-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.step.open .step-body{max-height:none;overflow:visible}
+.step-content{padding:0 20px 20px}
+
+/* Inputs */
+.input-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.text-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:10px 16px;border-radius:var(--radius-sm);flex:1;min-width:200px}
+.text-input:focus{outline:none;border-color:var(--gold)}
+.textarea-input{background:var(--bg);border:1px solid var(--bg4);color:var(--white);padding:12px 16px;border-radius:var(--radius-sm);width:100%;min-height:120px;resize:vertical;line-height:1.7}
+.textarea-input:focus{outline:none;border-color:var(--gold)}
+
+/* Buttons */
+.btn{padding:10px 20px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;font-size:0.95rem}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btn-gold{background:var(--gold);color:var(--bg)}
+.btn-gold:hover:not(:disabled){background:var(--gold2);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--bg4);color:var(--white)}
+.btn-outline:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.btn-green{background:var(--green);color:var(--white)}
+.btn-green:hover:not(:disabled){filter:brightness(1.1)}
+.btn-sm{padding:6px 12px;font-size:0.8rem;border-radius:6px}
+.btn-copy{background:var(--bg4);color:var(--white);font-size:0.8rem;padding:5px 10px;border-radius:6px}
+.btn-copy:hover{background:var(--gold);color:var(--bg)}
+.btn-copy.copied{background:var(--green)}
+
+/* Topic Cards */
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.topic-card{background:var(--bg);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:flex-start;gap:10px}
+.topic-card:hover{border-color:var(--gold);background:var(--gold-dim)}
+.topic-card.selected{border-color:var(--gold);background:var(--gold-dim)}
+.topic-num{color:var(--gold);font-weight:700;font-family:var(--mono);flex-shrink:0}
+.topic-text{flex:1;font-size:0.93rem;line-height:1.5}
+.topic-stars{color:var(--gold);font-size:0.85rem;flex-shrink:0;white-space:nowrap}
+
+/* Output area */
+.output-area{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px 20px;min-height:100px;white-space:pre-wrap;line-height:1.8;font-size:0.95rem;position:relative;margin-top:12px}
+.output-area .cursor{display:inline-block;width:2px;height:1.1em;background:var(--gold);animation:blink 0.8s infinite;vertical-align:text-bottom;margin-left:2px}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-top:16px;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.output-meta{color:var(--gray);font-size:0.85rem;font-family:var(--mono)}
+
+/* Prompt Cards (Step 3) */
+.prompt-list{margin-top:12px}
+.prompt-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px;position:relative}
+.prompt-card .scene-tag{color:var(--gold);font-weight:600;font-size:0.9rem;margin-bottom:4px}
+.prompt-card .ko-desc{color:var(--gray);font-size:0.88rem;margin-bottom:6px}
+.prompt-card .en-prompt{color:var(--white);font-size:0.93rem;font-family:var(--mono);line-height:1.5}
+.prompt-card .copy-btn{position:absolute;top:10px;right:10px}
+
+/* Thumbnail Cards (Step 5) */
+.thumb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.thumb-card{background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:16px;position:relative}
+.thumb-card .type-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:10px}
+.thumb-card .thumb-text{font-weight:700;font-size:1.1rem;margin-bottom:8px;line-height:1.4}
+.thumb-card .color-swatch{display:inline-block;width:20px;height:20px;border-radius:4px;vertical-align:middle;margin-right:6px;border:1px solid var(--bg4)}
+
+/* Checklist (Step 7) */
+.checklist{margin-top:12px}
+.check-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer;transition:all 0.2s}
+.check-item:hover{border-color:var(--gold)}
+.check-item.checked{border-color:var(--green);background:rgba(16,185,129,0.08)}
+.check-box{width:24px;height:24px;border:2px solid var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;font-size:0.85rem}
+.check-item.checked .check-box{background:var(--green);border-color:var(--green);color:var(--white)}
+.check-label{flex:1;font-size:0.95rem}
+.check-result{margin-top:16px;padding:16px;border-radius:var(--radius-sm);text-align:center;font-weight:600;font-size:1.05rem}
+.check-result.pass{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid var(--green)}
+.check-result.fail{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
+
+/* Loading */
+.loading{display:flex;align-items:center;gap:10px;padding:16px;color:var(--gold)}
+.spinner{width:20px;height:20px;border:2px solid var(--bg4);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Revenue Calculator */
+.revenue-calc{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-top:24px}
+.revenue-calc h3{color:var(--gold);font-size:1rem;margin-bottom:12px}
+.revenue-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.revenue-result{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.revenue-card{background:var(--bg);border-radius:var(--radius-sm);padding:12px;text-align:center}
+.revenue-card .val{font-size:1.3rem;font-weight:700;color:var(--gold);font-family:var(--mono)}
+.revenue-card .lbl{font-size:0.8rem;color:var(--gray);margin-top:4px}
+
+/* Error */
+.error-msg{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:var(--red);padding:12px 16px;border-radius:var(--radius-sm);margin-top:12px;font-size:0.9rem}
+
+/* Responsive */
+@media(max-width:768px){
+  .header-top{flex-direction:column;align-items:flex-start}
+  .api-input{width:100%}
+  .topic-grid{grid-template-columns:1fr}
+  .thumb-grid{grid-template-columns:1fr}
+  .revenue-result{grid-template-columns:1fr}
+  .settings-row{flex-direction:column}
+}
+
+/* Character Sheet Inputs */
+.char-settings{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px}
+.char-settings .setting-group{flex-direction:column;align-items:flex-start;gap:4px}
+.char-settings .setting-group select{width:100%}
+
+/* Upload section */
+.upload-section{margin-top:12px;margin-bottom:16px}
+.upload-section h4{color:var(--gray);font-size:0.85rem;margin-bottom:8px;font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo">AI Video Maker <span>v1.0 — 경제 롱폼 영상 자동화</span></div>
+      <div class="api-row">
+        <div class="api-status" id="apiStatus"></div>
+        <input type="password" class="api-input" id="apiKeyInput" placeholder="Claude API Key (sk-ant-...)" oninput="handleApiKey(this.value)">
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="setting-group">
+        <label>장르</label>
+        <select id="genreSelect">
+          <option value="economy">경제</option>
+          <option value="politics">시사</option>
+          <option value="psychology">심리학</option>
+          <option value="history">역사</option>
+          <option value="realestate">부동산</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label>채널 스타일</label>
+        <select id="styleSelect">
+          <option value="semi-real">반실사 (햄찌교수)</option>
+          <option value="zolaman">쫄라맨</option>
+          <option value="ghibli">지브리</option>
+          <option value="realistic">실사</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label>타겟 연령</label>
+        <select id="targetSelect">
+          <option value="30s" selected>30대</option>
+          <option value="20s">20대</option>
+          <option value="40s">40대</option>
+          <option value="all">전연령</option>
+        </select>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="resetAll()">새 프로젝트</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- STEP 1: 주제 발굴 -->
+  <section class="step active open" id="step1">
+    <div class="step-header" onclick="toggleStep(1)">
+      <div class="step-num">1</div>
+      <div class="step-title">주제 발굴 & 선정</div>
+      <div class="step-summary" id="step1Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div class="input-row">
+          <input type="text" class="text-input" id="keywordInput" placeholder="키워드 또는 뉴스 헤드라인 입력 (예: 미국 금리 인하)" onkeydown="if(event.key==='Enter')generateTopics()">
+          <button class="btn btn-gold" id="topicBtn" onclick="generateTopics()">주제 10개 생성</button>
+        </div>
+        <div id="topicLoading" style="display:none" class="loading"><div class="spinner"></div>주제를 생성하고 있습니다...</div>
+        <div id="topicError"></div>
+        <div class="topic-grid" id="topicGrid"></div>
+        <div style="margin-top:12px;display:none" id="customTopicRow">
+          <div class="input-row">
+            <input type="text" class="text-input" id="customTopicInput" placeholder="또는 직접 주제를 입력하세요">
+            <button class="btn btn-outline" onclick="selectCustomTopic()">이 주제로 진행</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: 대본 생성 -->
+  <section class="step" id="step2">
+    <div class="step-header" onclick="toggleStep(2)">
+      <div class="step-num">2</div>
+      <div class="step-title">대본 생성</div>
+      <div class="step-summary" id="step2Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <div>
+            <span style="color:var(--gray);font-size:0.85rem">선택된 주제:</span>
+            <strong id="selectedTopicDisplay" style="color:var(--gold);margin-left:6px"></strong>
+          </div>
+          <button class="btn btn-gold" id="scriptBtn" onclick="generateScript()" disabled>대본 생성 (8,000~10,000자)</button>
+        </div>
+        <div id="scriptLoading" style="display:none" class="loading"><div class="spinner"></div>대본을 작성하고 있습니다...</div>
+        <div id="scriptError"></div>
+        <div class="output-header" id="scriptHeader" style="display:none">
+          <div>
+            <button class="btn btn-copy" onclick="copyText('scriptOutput')">전체 복사</button>
+          </div>
+          <div class="output-meta" id="scriptMeta"></div>
+        </div>
+        <div class="output-area" id="scriptOutput" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3: 이미지 프롬프트 -->
+  <section class="step" id="step3">
+    <div class="step-header" onclick="toggleStep(3)">
+      <div class="step-num">3</div>
+      <div class="step-title">이미지 프롬프트 생성</div>
+      <div class="step-summary" id="step3Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-gold" id="promptBtn" onclick="generateImagePrompts()" disabled>이미지 프롬프트 생성</button>
+          <button class="btn btn-green" id="autoWhiskBtn" onclick="copyAutoWhisk()" style="display:none">AutoWhisk 복사</button>
+          <button class="btn btn-outline" id="downloadPromptsBtn" onclick="downloadPrompts()" style="display:none">텍스트 파일 다운로드</button>
+        </div>
+        <div id="promptLoading" style="display:none" class="loading"><div class="spinner"></div>이미지 프롬프트를 생성하고 있습니다...</div>
+        <div id="promptError"></div>
+        <div class="prompt-list" id="promptList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4: 캐릭터 시트 -->
+  <section class="step" id="step4">
+    <div class="step-header" onclick="toggleStep(4)">
+      <div class="step-num">4</div>
+      <div class="step-title">캐릭터 시트 생성</div>
+      <div class="step-summary" id="step4Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div class="char-settings">
+          <div class="setting-group">
+            <label>성별</label>
+            <select id="charGender"><option value="male">남성</option><option value="female">여성</option></select>
+          </div>
+          <div class="setting-group">
+            <label>연령대</label>
+            <select id="charAge"><option value="20s">20대</option><option value="30s" selected>30대</option><option value="40s">40대</option><option value="50s">50대</option></select>
+          </div>
+          <div class="setting-group">
+            <label>직업 이미지</label>
+            <select id="charJob"><option value="office">직장인</option><option value="expert">전문가</option><option value="casual">캐주얼</option></select>
+          </div>
+          <div class="setting-group">
+            <label>헤어</label>
+            <select id="charHair"><option value="short">짧은 헤어</option><option value="medium">단발</option><option value="long">장발</option></select>
+          </div>
+          <div class="setting-group">
+            <label>안경</label>
+            <select id="charGlasses"><option value="no">없음</option><option value="yes">있음</option></select>
+          </div>
+        </div>
+        <button class="btn btn-gold" id="charBtn" onclick="generateCharSheet()">캐릭터 시트 생성</button>
+        <div id="charLoading" style="display:none" class="loading"><div class="spinner"></div>캐릭터 시트를 생성하고 있습니다...</div>
+        <div id="charError"></div>
+        <div class="output-header" id="charHeader" style="display:none">
+          <button class="btn btn-copy" onclick="copyText('charOutput')">전체 복사</button>
+        </div>
+        <div class="output-area" id="charOutput" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: 썸네일 -->
+  <section class="step" id="step5">
+    <div class="step-header" onclick="toggleStep(5)">
+      <div class="step-num">5</div>
+      <div class="step-title">썸네일 프롬프트 생성</div>
+      <div class="step-summary" id="step5Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <button class="btn btn-gold" id="thumbBtn" onclick="generateThumbnails()" disabled>썸네일 3종 생성</button>
+        <div id="thumbLoading" style="display:none" class="loading"><div class="spinner"></div>썸네일 프롬프트를 생성하고 있습니다...</div>
+        <div id="thumbError"></div>
+        <div class="thumb-grid" id="thumbGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 6: 업로드 최적화 -->
+  <section class="step" id="step6">
+    <div class="step-header" onclick="toggleStep(6)">
+      <div class="step-num">6</div>
+      <div class="step-title">유튜브 업로드 최적화</div>
+      <div class="step-summary" id="step6Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <button class="btn btn-gold" id="uploadBtn" onclick="generateUploadTexts()" disabled>업로드 텍스트 생성</button>
+        <div id="uploadLoading" style="display:none" class="loading"><div class="spinner"></div>업로드 최적화 텍스트를 생성하고 있습니다...</div>
+        <div id="uploadError"></div>
+        <div class="output-header" id="uploadHeader" style="display:none">
+          <button class="btn btn-copy" onclick="copyText('uploadOutput')">전체 복사</button>
+        </div>
+        <div class="output-area" id="uploadOutput" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 7: 삭제 방지 체크리스트 -->
+  <section class="step" id="step7">
+    <div class="step-header" onclick="toggleStep(7)">
+      <div class="step-num">7</div>
+      <div class="step-title">삭제 방지 체크리스트</div>
+      <div class="step-summary" id="step7Summary"></div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-content">
+        <div class="checklist" id="checklist"></div>
+        <div id="checkResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revenue Calculator -->
+  <div class="revenue-calc">
+    <h3>예상 수익 계산기</h3>
+    <div class="revenue-row">
+      <input type="number" class="text-input" id="viewsInput" placeholder="예상 조회수" oninput="calcRevenue()" style="max-width:200px">
+      <span style="color:var(--gray);font-size:0.85rem">회 조회 기준</span>
+    </div>
+    <div class="revenue-result" id="revenueResult" style="display:none">
+      <div class="revenue-card">
+        <div class="val" id="revUsd"></div>
+        <div class="lbl">예상 애드센스 (USD)</div>
+      </div>
+      <div class="revenue-card">
+        <div class="val" id="revKrw"></div>
+        <div class="lbl">원화 환산</div>
+      </div>
+      <div class="revenue-card">
+        <div class="val" id="revMonthly"></div>
+        <div class="lbl">월 30개 영상 기준</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ===== STATE =====
+const state = {
+  apiKey: '',
+  genre: 'economy',
+  channelStyle: 'semi-real',
+  targetAge: '30s',
+  step1: { keyword: '', topics: [], selectedIndex: -1 },
+  step2: { selectedTopic: '', script: '' },
+  step3: { rawText: '', prompts: [] },
+  step4: { sheet: '' },
+  step5: { thumbnails: '' },
+  step6: { uploadText: '' },
+  step7: { checks: [false, false, false, false, false] }
+};
+
+const GENRE_LABELS = { economy: '경제', politics: '시사', psychology: '심리학', history: '역사', realestate: '부동산' };
+const STYLE_LABELS = { 'semi-real': '반실사(햄찌교수)', zolaman: '쫄라맨', ghibli: '지브리', realistic: '실사' };
+const TARGET_LABELS = { '20s': '20대', '30s': '30대', '40s': '40대', all: '전연령' };
+const CHECKLIST_ITEMS = [
+  '고유 캐릭터 사용 (쫄라맨 복붙 X)',
+  '이미지 → 영상 변환 (인트로 최소 30초)',
+  '고유 TTS 사용 (공용 TTS X)',
+  'AI 생성 콘텐츠 업로드 시 고지 체크',
+  '크리에이터 사견 대본에 포함'
+];
+
+// ===== INIT =====
+function init() {
+  const saved = sessionStorage.getItem('avm_apikey');
+  if (saved) { state.apiKey = saved; document.getElementById('apiKeyInput').value = saved; updateApiStatus(); }
+  renderChecklist();
+  bindSettings();
+}
+
+function handleApiKey(val) {
+  state.apiKey = val.trim();
+  if (state.apiKey) sessionStorage.setItem('avm_apikey', state.apiKey);
+  updateApiStatus();
+}
+
+function updateApiStatus() {
+  document.getElementById('apiStatus').classList.toggle('ok', !!state.apiKey);
+}
+
+function bindSettings() {
+  document.getElementById('genreSelect').addEventListener('change', e => state.genre = e.target.value);
+  document.getElementById('styleSelect').addEventListener('change', e => state.channelStyle = e.target.value);
+  document.getElementById('targetSelect').addEventListener('change', e => state.targetAge = e.target.value);
+}
+
+// ===== STEP TOGGLE =====
+function toggleStep(n) {
+  const el = document.getElementById('step' + n);
+  el.classList.toggle('open');
+}
+
+function openStep(n) {
+  document.getElementById('step' + n).classList.add('open');
+  document.getElementById('step' + n).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function completeStep(n, summary) {
+  const el = document.getElementById('step' + n);
+  el.classList.add('completed');
+  el.classList.remove('active');
+  const sumEl = document.getElementById('step' + n + 'Summary');
+  if (sumEl && summary) sumEl.textContent = summary;
+  // activate next
+  const next = document.getElementById('step' + (n + 1));
+  if (next) { next.classList.add('active'); openStep(n + 1); }
+  // collapse current
+  el.classList.remove('open');
+}
+
+// ===== CLAUDE API =====
+async function callClaude(prompt, outputEl, onDone) {
+  if (!state.apiKey) { showError(outputEl.id.replace('Output','Error').replace('Grid','Error').replace('List','Error'), 'API Key를 입력해주세요.'); return; }
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': state.apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 8192,
+      stream: true,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`API 오류 (${response.status}): ${err}`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let full = '';
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const data = line.slice(6);
+      if (data === '[DONE]') continue;
+      try {
+        const json = JSON.parse(data);
+        if (json.type === 'content_block_delta' && json.delta?.text) {
+          full += json.delta.text;
+          if (outputEl) {
+            outputEl.style.display = 'block';
+            outputEl.textContent = full;
+          }
+        }
+      } catch {}
+    }
+  }
+  if (onDone) onDone(full);
+  return full;
+}
+
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="error-msg">${msg}</div>`;
+}
+
+function clearError(id) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = '';
+}
+
+// ===== STEP 1: TOPICS =====
+async function generateTopics() {
+  const keyword = document.getElementById('keywordInput').value.trim();
+  if (!keyword) return;
+  state.step1.keyword = keyword;
+
+  const btn = document.getElementById('topicBtn');
+  const loading = document.getElementById('topicLoading');
+  const grid = document.getElementById('topicGrid');
+  btn.disabled = true; loading.style.display = 'flex'; grid.innerHTML = '';
+  clearError('topicError');
+
+  const genre = GENRE_LABELS[state.genre] || '경제';
+  const target = TARGET_LABELS[state.targetAge] || '30대';
+
+  const prompt = `당신은 15년차 ${genre} 유튜브 콘텐츠 PD입니다.
+입력된 키워드: ${keyword}
+장르: ${genre} / 타겟: ${target}
+
+조건:
+- 30~40대가 클릭할 심리적 트리거 포함
+- "왜", "몰랐던", "충격", "비밀" 등 후킹 요소
+- 검색 수요가 있는 시의성 있는 주제
+- 유튜브 알고리즘에 최적화된 제목 형식
+
+유튜브 영상 주제 10개를 번호 목록으로 출력하세요.
+각 주제 옆에 예상 조회수 포텐셜을 ★1~5로 표시하세요.
+
+출력 형식 (반드시 준수):
+1. 주제 제목 ★★★★
+2. 주제 제목 ★★★★★
+...`;
+
+  try {
+    const result = await callClaude(prompt, null, null);
+    const topics = [];
+    const lines = result.split('\n');
+    for (const line of lines) {
+      const m = line.match(/^\s*(\d+)[.\)]\s*(.+?)(\s*★+)?\s*$/);
+      if (m) {
+        topics.push({ num: m[1], text: m[2].trim(), stars: (m[3] || '').trim() });
+      }
+    }
+    state.step1.topics = topics;
+    renderTopics(topics);
+    document.getElementById('customTopicRow').style.display = 'block';
+  } catch (e) {
+    showError('topicError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+function renderTopics(topics) {
+  const grid = document.getElementById('topicGrid');
+  grid.innerHTML = topics.map((t, i) => `
+    <div class="topic-card" onclick="selectTopic(${i})" id="topicCard${i}">
+      <div class="topic-num">${t.num}.</div>
+      <div class="topic-text">${t.text}</div>
+      <div class="topic-stars">${t.stars}</div>
+    </div>
+  `).join('');
+}
+
+function selectTopic(idx) {
+  state.step1.selectedIndex = idx;
+  const topic = state.step1.topics[idx].text;
+  state.step2.selectedTopic = topic;
+  document.querySelectorAll('.topic-card').forEach((c, i) => c.classList.toggle('selected', i === idx));
+  document.getElementById('selectedTopicDisplay').textContent = topic;
+  document.getElementById('scriptBtn').disabled = false;
+  document.getElementById('thumbBtn').disabled = false;
+  document.getElementById('uploadBtn').disabled = false;
+  completeStep(1, topic.substring(0, 50) + '...');
+}
+
+function selectCustomTopic() {
+  const val = document.getElementById('customTopicInput').value.trim();
+  if (!val) return;
+  state.step2.selectedTopic = val;
+  document.getElementById('selectedTopicDisplay').textContent = val;
+  document.getElementById('scriptBtn').disabled = false;
+  document.getElementById('thumbBtn').disabled = false;
+  document.getElementById('uploadBtn').disabled = false;
+  completeStep(1, val.substring(0, 50) + '...');
+}
+
+// ===== STEP 2: SCRIPT =====
+async function generateScript() {
+  const topic = state.step2.selectedTopic;
+  if (!topic) return;
+
+  const btn = document.getElementById('scriptBtn');
+  const loading = document.getElementById('scriptLoading');
+  const output = document.getElementById('scriptOutput');
+  const header = document.getElementById('scriptHeader');
+  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
+  clearError('scriptError');
+
+  const genre = GENRE_LABELS[state.genre];
+  const style = STYLE_LABELS[state.channelStyle];
+  const target = TARGET_LABELS[state.targetAge];
+
+  const prompt = `당신은 구독자 50만 유튜브 ${genre} 채널의 대본 작가입니다.
+주제: ${topic}
+채널 스타일: ${style}
+타겟: ${target}
+
+대본 구조 (반드시 준수):
+[인트로 - 30초]: 충격적 사실로 시작, 시청 이유 제시
+[본론 1막]: 문제 제기 및 배경 설명
+[본론 2막]: 핵심 분석 및 데이터
+[본론 3막]: 실생활 영향 및 솔루션
+[아웃트로]: 핵심 정리 + CTA (구독/좋아요)
+
+조건:
+- 구어체로 작성 (방송 언어 X, 친구에게 말하듯)
+- 전문 용어는 반드시 쉽게 풀어서 설명
+- 크리에이터의 개인 의견/사견 반드시 포함
+- 역설적/반어적 표현으로 후킹 강화
+- 각 단락 시작에 [장면태그] 표시
+  예: [놀라는표정], [분석중], [결론발표]
+- 총 글자수: 8,000~10,000자`;
+
+  try {
+    const result = await callClaude(prompt, output, (text) => {
+      state.step2.script = text;
+      const charCount = text.length;
+      const minutes = Math.floor(charCount / 500);
+      const seconds = Math.round((charCount % 500) / 500 * 60);
+      document.getElementById('scriptMeta').textContent = `${charCount.toLocaleString()}자 | 약 ${minutes}분 ${seconds}초`;
+      document.getElementById('promptBtn').disabled = false;
+      completeStep(2, `${charCount.toLocaleString()}자 대본 완성`);
+    });
+  } catch (e) {
+    showError('scriptError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+// ===== STEP 3: IMAGE PROMPTS =====
+async function generateImagePrompts() {
+  const script = state.step2.script;
+  if (!script) return;
+
+  const btn = document.getElementById('promptBtn');
+  const loading = document.getElementById('promptLoading');
+  const list = document.getElementById('promptList');
+  btn.disabled = true; loading.style.display = 'flex'; list.innerHTML = '';
+  clearError('promptError');
+
+  const style = state.channelStyle;
+  let styleGuide = '';
+  if (style === 'semi-real') styleGuide = 'photorealistic Korean person, clean white background, professional lighting, 4K';
+  else if (style === 'zolaman') styleGuide = 'simple stick figure animation, white background, bold outline';
+  else if (style === 'ghibli') styleGuide = 'Studio Ghibli animation style, soft colors, detailed background';
+  else styleGuide = 'realistic photography style, high quality, 4K';
+
+  const prompt = `당신은 AI 이미지 생성 전문가입니다.
+아래 대본의 각 장면 태그([...])에 맞는 이미지 프롬프트를 생성하세요.
+
+채널 스타일: ${STYLE_LABELS[style]}
+스타일 가이드: "${styleGuide}"
+
+대본:
+${script.substring(0, 6000)}
+
+출력 형식 (반드시 준수):
+번호. [장면태그] 한국어 설명
+EN: 영어프롬프트 (Whisk/Gemini 최적화, 100자 이내)
+
+조건:
+- 캐릭터 일관성 유지 설명 포함
+- 배경은 흰색 또는 단색 권장
+- 텍스트/글자 포함 금지
+- 각 프롬프트는 독립적으로 사용 가능하도록 작성
+- 최소 40개 이상 생성`;
+
+  try {
+    const result = await callClaude(prompt, null, null);
+    state.step3.rawText = result;
+    const prompts = parsePrompts(result);
+    state.step3.prompts = prompts;
+    renderPrompts(prompts);
+    document.getElementById('autoWhiskBtn').style.display = 'inline-flex';
+    document.getElementById('downloadPromptsBtn').style.display = 'inline-flex';
+    completeStep(3, `${prompts.length}개 프롬프트 생성 완료`);
+  } catch (e) {
+    showError('promptError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+function parsePrompts(text) {
+  const prompts = [];
+  const lines = text.split('\n');
+  let current = null;
+
+  for (const line of lines) {
+    const numMatch = line.match(/^\s*(\d+)\.\s*(\[.*?\])?\s*(.*)/);
+    if (numMatch) {
+      if (current) prompts.push(current);
+      current = { num: numMatch[1], tag: numMatch[2] || '', ko: numMatch[3] || '', en: '' };
+      continue;
+    }
+    const enMatch = line.match(/^\s*EN:\s*(.*)/i);
+    if (enMatch && current) {
+      current.en = enMatch[1].trim();
+      continue;
+    }
+    // fallback: if line looks like an english prompt
+    if (current && !current.en && /^[A-Za-z]/.test(line.trim()) && line.trim().length > 20) {
+      current.en = line.trim();
+    }
+  }
+  if (current) prompts.push(current);
+  return prompts;
+}
+
+function renderPrompts(prompts) {
+  const list = document.getElementById('promptList');
+  list.innerHTML = prompts.map((p, i) => `
+    <div class="prompt-card">
+      <div class="scene-tag">${p.num}. ${p.tag}</div>
+      <div class="ko-desc">${p.ko}</div>
+      <div class="en-prompt">${p.en}</div>
+      <button class="btn btn-copy copy-btn" onclick="copyOne(this, ${i})">복사</button>
+    </div>
+  `).join('');
+}
+
+function copyAutoWhisk() {
+  const enOnly = state.step3.prompts.map(p => p.en).filter(Boolean).join('\n');
+  navigator.clipboard.writeText(enOnly);
+  const btn = document.getElementById('autoWhiskBtn');
+  btn.textContent = 'AutoWhisk에 붙여넣기 하세요';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'AutoWhisk 복사'; btn.classList.remove('copied'); }, 3000);
+}
+
+function copyOne(btnEl, idx) {
+  navigator.clipboard.writeText(state.step3.prompts[idx].en);
+  btnEl.textContent = '완료';
+  btnEl.classList.add('copied');
+  setTimeout(() => { btnEl.textContent = '복사'; btnEl.classList.remove('copied'); }, 2000);
+}
+
+function downloadPrompts() {
+  const text = state.step3.prompts.map(p => `${p.num}. ${p.tag} ${p.ko}\nEN: ${p.en}`).join('\n\n');
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'image-prompts.txt';
+  a.click();
+}
+
+// ===== STEP 4: CHARACTER SHEET =====
+async function generateCharSheet() {
+  const btn = document.getElementById('charBtn');
+  const loading = document.getElementById('charLoading');
+  const output = document.getElementById('charOutput');
+  const header = document.getElementById('charHeader');
+  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
+  clearError('charError');
+
+  const gender = document.getElementById('charGender').value === 'male' ? '남성' : '여성';
+  const age = document.getElementById('charAge').value;
+  const job = { office: '직장인', expert: '전문가', casual: '캐주얼' }[document.getElementById('charJob').value];
+  const hair = { short: '짧은 헤어', medium: '단발', long: '장발' }[document.getElementById('charHair').value];
+  const glasses = document.getElementById('charGlasses').value === 'yes' ? ', 안경 착용' : '';
+  const style = STYLE_LABELS[state.channelStyle];
+
+  const prompt = `당신은 AI 이미지 생성 전문가이자 유튜브 캐릭터 디자이너입니다.
+
+캐릭터 설정:
+- 성별: ${gender}
+- 연령대: ${TARGET_LABELS[age]}
+- 직업 이미지: ${job}
+- 헤어: ${hair}${glasses}
+- 채널 스타일: ${style}
+
+다음 항목을 생성하세요:
+
+1. 전체적 외형 설명 (한국어, 상세하게)
+2. Whisk Subject 업로드용 프롬프트 (영어)
+3. AutoWhisk 레퍼런스 이미지용 프롬프트 (영어)
+4. 표정 변형 프롬프트 5종 (영어):
+   - 기본 (neutral)
+   - 놀람 (surprised)
+   - 분석 (thinking/analyzing)
+   - 결론 (confident/concluding)
+   - 공감 (empathetic)
+
+각 프롬프트는 Whisk/Gemini에서 캐릭터 일관성을 유지할 수 있도록 핵심 외형 특징을 반복 포함하세요.`;
+
+  try {
+    await callClaude(prompt, output, (text) => {
+      state.step4.sheet = text;
+      completeStep(4, '캐릭터 시트 생성 완료');
+    });
+  } catch (e) {
+    showError('charError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+// ===== STEP 5: THUMBNAILS =====
+async function generateThumbnails() {
+  const topic = state.step2.selectedTopic;
+  if (!topic) return;
+
+  const btn = document.getElementById('thumbBtn');
+  const loading = document.getElementById('thumbLoading');
+  const grid = document.getElementById('thumbGrid');
+  btn.disabled = true; loading.style.display = 'flex'; grid.innerHTML = '';
+  clearError('thumbError');
+
+  const style = STYLE_LABELS[state.channelStyle];
+  const target = TARGET_LABELS[state.targetAge];
+
+  const prompt = `당신은 유튜브 썸네일 전문 디자이너입니다.
+영상 주제: ${topic}
+채널 스타일: ${style}
+타겟: ${target}
+
+햄찌교수 채널 썸네일 특징 참고:
+- 강렬한 한국어 텍스트 (2~4단어)
+- AI 인물 이미지 배치
+- 감정 유발 색상 (빨강/노랑 계열)
+- 충격/의문 심리 활용
+
+썸네일 3종 생성:
+
+반드시 아래 JSON 형식으로만 출력하세요:
+[
+  {
+    "type": "A",
+    "typeName": "충격/경고형",
+    "mainText": "썸네일 한국어 문구",
+    "prompt": "영어 이미지 프롬프트",
+    "bgColor": "#hex"
+  },
+  {
+    "type": "B",
+    "typeName": "궁금증/비밀형",
+    "mainText": "썸네일 한국어 문구",
+    "prompt": "영어 이미지 프롬프트",
+    "bgColor": "#hex"
+  },
+  {
+    "type": "C",
+    "typeName": "해결책/희망형",
+    "mainText": "썸네일 한국어 문구",
+    "prompt": "영어 이미지 프롬프트",
+    "bgColor": "#hex"
+  }
+]`;
+
+  try {
+    const result = await callClaude(prompt, null, null);
+    state.step5.thumbnails = result;
+    let thumbs;
+    try {
+      const jsonMatch = result.match(/\[[\s\S]*\]/);
+      thumbs = JSON.parse(jsonMatch[0]);
+    } catch {
+      thumbs = [{ type: 'A', typeName: '결과', mainText: '파싱 실패', prompt: result, bgColor: '#333' }];
+    }
+    renderThumbnails(thumbs);
+    completeStep(5, '썸네일 3종 생성 완료');
+  } catch (e) {
+    showError('thumbError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+function renderThumbnails(thumbs) {
+  const grid = document.getElementById('thumbGrid');
+  grid.innerHTML = thumbs.map(t => `
+    <div class="thumb-card">
+      <div class="type-badge">${t.type}타입: ${t.typeName}</div>
+      <div class="thumb-text">${t.mainText}</div>
+      <div style="margin-bottom:8px">
+        <span class="color-swatch" style="background:${t.bgColor}"></span>
+        <span style="color:var(--gray);font-size:0.8rem;font-family:var(--mono)">${t.bgColor}</span>
+      </div>
+      <div style="font-size:0.85rem;font-family:var(--mono);color:var(--gray);line-height:1.5;margin-bottom:8px">${t.prompt}</div>
+      <button class="btn btn-copy" onclick="copyThis(this,'${t.prompt.replace(/'/g,"\\'")}')">프롬프트 복사</button>
+    </div>
+  `).join('');
+}
+
+// ===== STEP 6: UPLOAD OPTIMIZATION =====
+async function generateUploadTexts() {
+  const topic = state.step2.selectedTopic;
+  const script = state.step2.script;
+  if (!topic) return;
+
+  const btn = document.getElementById('uploadBtn');
+  const loading = document.getElementById('uploadLoading');
+  const output = document.getElementById('uploadOutput');
+  const header = document.getElementById('uploadHeader');
+  btn.disabled = true; loading.style.display = 'flex'; output.innerHTML = ''; output.style.display = 'block'; header.style.display = 'flex';
+  clearError('uploadError');
+
+  const genre = GENRE_LABELS[state.genre];
+
+  const prompt = `당신은 유튜브 SEO 전문가입니다.
+영상 주제: ${topic}
+장르: ${genre}
+${script ? '대본 요약 (앞부분):\n' + script.substring(0, 2000) : ''}
+
+아래 6가지 항목을 모두 생성하세요:
+
+① 영상 제목 3종 (A/B/C 테스트용)
+② 영상 설명 (SEO 최적화, 해시태그 포함, 300자 이상)
+③ 태그 30개 (쉼표로 구분)
+④ 챕터 타임스탬프 (대본 구조 기반으로 예상 시간 배분)
+⑤ AI 생성 콘텐츠 고지 문구 (유튜브 정책 준수)
+⑥ 고정 댓글 초안 (시청자 참여 유도)
+
+각 항목은 명확하게 구분하여 출력하세요.`;
+
+  try {
+    await callClaude(prompt, output, (text) => {
+      state.step6.uploadText = text;
+      completeStep(6, '업로드 텍스트 생성 완료');
+    });
+  } catch (e) {
+    showError('uploadError', e.message);
+  }
+  btn.disabled = false; loading.style.display = 'none';
+}
+
+// ===== STEP 7: CHECKLIST =====
+function renderChecklist() {
+  const el = document.getElementById('checklist');
+  el.innerHTML = CHECKLIST_ITEMS.map((item, i) => `
+    <div class="check-item${state.step7.checks[i] ? ' checked' : ''}" onclick="toggleCheck(${i})">
+      <div class="check-box">${state.step7.checks[i] ? '✓' : ''}</div>
+      <div class="check-label">${i + 1}. ${item}</div>
+    </div>
+  `).join('');
+  updateCheckResult();
+}
+
+function toggleCheck(idx) {
+  state.step7.checks[idx] = !state.step7.checks[idx];
+  renderChecklist();
+}
+
+function updateCheckResult() {
+  const all = state.step7.checks.every(Boolean);
+  const count = state.step7.checks.filter(Boolean).length;
+  const el = document.getElementById('checkResult');
+  if (count === 0) { el.innerHTML = ''; return; }
+  if (all) {
+    el.innerHTML = '<div class="check-result pass">안전한 영상입니다 (5/5 통과)</div>';
+    completeStep(7, '체크리스트 5/5 통과');
+  } else {
+    el.innerHTML = `<div class="check-result fail">${count}/5 완료 — 모든 항목을 확인해주세요</div>`;
+  }
+}
+
+// ===== UTILITY =====
+function copyText(elId) {
+  const text = document.getElementById(elId).textContent;
+  navigator.clipboard.writeText(text);
+  event.target.textContent = '복사 완료';
+  event.target.classList.add('copied');
+  setTimeout(() => { event.target.textContent = '전체 복사'; event.target.classList.remove('copied'); }, 2000);
+}
+
+function copyThis(btnEl, text) {
+  navigator.clipboard.writeText(text);
+  btnEl.textContent = '복사 완료';
+  btnEl.classList.add('copied');
+  setTimeout(() => { btnEl.textContent = '프롬프트 복사'; btnEl.classList.remove('copied'); }, 2000);
+}
+
+function calcRevenue() {
+  const views = parseInt(document.getElementById('viewsInput').value) || 0;
+  if (views <= 0) { document.getElementById('revenueResult').style.display = 'none'; return; }
+  document.getElementById('revenueResult').style.display = 'grid';
+  const rpm = 12.5; // average RPM
+  const usd = (views / 1000 * rpm).toFixed(2);
+  const krw = Math.round(usd * 1350);
+  const monthly = Math.round(krw * 30);
+  document.getElementById('revUsd').textContent = '$' + Number(usd).toLocaleString();
+  document.getElementById('revKrw').textContent = '₩' + krw.toLocaleString();
+  document.getElementById('revMonthly').textContent = '₩' + monthly.toLocaleString();
+}
+
+function resetAll() {
+  if (!confirm('모든 작업 내용을 초기화하시겠습니까?')) return;
+  location.reload();
+}
+
+// Init
+init();
+</script>
+</body>
+</html>
